@@ -1,3 +1,5 @@
+import 'package:app_store/src/modules/main/widgets/logo.dart';
+import 'package:app_store/src/modules/main/widgets/search_package.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -13,6 +15,8 @@ class HeaderWidget extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: const LogoWidget(),
+      title: SearchPackageWidget(),
       actions: [
         Container(
           alignment: Alignment.topCenter,
@@ -42,7 +46,7 @@ class HeaderWidget extends StatelessWidget implements PreferredSizeWidget{
   }
   
   @override
-  Size get preferredSize => const Size.fromHeight(35);
+  Size get preferredSize => const Size.fromHeight(40);
 }
 
 Future<void> _minimize(WindowManager windowManager) async {

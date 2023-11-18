@@ -9,7 +9,6 @@ ThemeData _lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: lightColorScheme,
   appBarTheme: AppBarTheme(
-    toolbarHeight: 35,
     centerTitle: true,
     elevation: 3,
     shadowColor: lightColorScheme.onPrimary,

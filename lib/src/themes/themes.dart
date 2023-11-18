@@ -8,7 +8,9 @@ ThemeData get darkTheme => _darkTheme;
 ThemeData _lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: lightColorScheme,
-  appBarTheme: const AppBarTheme(
+  appBarTheme:  const AppBarTheme(
+    toolbarHeight: 35,
+    centerTitle: true,
     elevation: 0,
   )
 );

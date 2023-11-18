@@ -1,4 +1,5 @@
-import 'package:app_store/src/main/main_view.dart';
+import 'package:app_store/src/modules/main/main_view.dart';
+import 'package:app_store/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
@@ -6,8 +7,11 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MainView(),
+    return  MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      home: const MainView(),
     );
   }
 }

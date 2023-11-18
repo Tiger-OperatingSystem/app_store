@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-class HeaderWidget {
-  static PreferredSizeWidget build(BuildContext context, 
-  WindowManager windowManager) {
+class HeaderWidget extends StatelessWidget implements PreferredSizeWidget{
+  final WindowManager windowManager;
+  final BuildContext context;
+  const HeaderWidget({
+    super.key, 
+    required this.windowManager, 
+    required this.context
+    });
+
+  @override
+  Widget build(BuildContext context) {
     return AppBar(
       actions: [
         Container(
@@ -32,6 +40,9 @@ class HeaderWidget {
       ],
     );
   }
+  
+  @override
+  Size get preferredSize => const Size.fromHeight(35);
 }
 
 Future<void> _minimize(WindowManager windowManager) async {

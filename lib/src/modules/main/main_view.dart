@@ -26,7 +26,10 @@ class _MainViewState extends State<MainView>  with WindowListener {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HeaderWidget.build(context, windowManager),
+      appBar: HeaderWidget(
+        windowManager: windowManager,
+        context: context,
+      ),
     );
   }
 }

@@ -9,8 +9,7 @@ class MainView extends StatefulWidget {
   State<MainView> createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView>  with WindowListener {
-
+class _MainViewState extends State<MainView> with WindowListener {
   @override
   void initState() {
     super.initState();
@@ -25,10 +24,26 @@ class _MainViewState extends State<MainView>  with WindowListener {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: HeaderWidget(
-        windowManager: windowManager,
-        context: context,
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 3,
+      child: Scaffold(
+        appBar: HeaderWidget(
+          windowManager: windowManager,
+          context: context,
+        ),
+
+        //Content
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            border: Border.all(),
+          ),
+          child: Center(
+            child: Text("Discovery TigerOS views"),
+          ),
+        ),
       ),
     );
   }

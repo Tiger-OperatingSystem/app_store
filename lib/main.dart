@@ -2,7 +2,7 @@ import 'package:window_manager/window_manager.dart';
 import 'package:app_store/app_widget.dart';
 import 'package:flutter/material.dart';
 
-Future<void> main()  async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await windowManager.ensureInitialized();
@@ -20,5 +20,7 @@ Future<void> main()  async {
     await windowManager.focus();
   });
 
-  runApp(const AppWidget());
+  runApp(
+    const AppWidget(),
+  );
 }

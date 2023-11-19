@@ -9,11 +9,11 @@ class LogoWidget extends StatelessWidget {
       padding: const EdgeInsets.all(2.0),
       child: CircleAvatar(
         child: Image.asset(
-          'assets/images/logo.png', 
-          fit: BoxFit.cover, 
-          width: 35, 
+          'assets/images/logo.png',
+          fit: BoxFit.cover,
+          width: 35,
           height: 35,
-          ),
+        ),
       ),
     );
   }

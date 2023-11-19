@@ -1,7 +1,26 @@
+import 'package:window_manager/window_manager.dart';
 import 'package:app_store/app_widget.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const AppWidget());
+
+  await windowManager.ensureInitialized();
+
+  WindowOptions windowOptions = const WindowOptions(
+    center: true,
+    skipTaskbar: false,
+    titleBarStyle: TitleBarStyle.hidden,
+  );
+
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.setTitle('Central de Aplicações');
+    await windowManager.maximize();
+    await windowManager.show();
+    await windowManager.focus();
+  });
+
+  runApp(
+    const AppWidget(),
+  );
 }

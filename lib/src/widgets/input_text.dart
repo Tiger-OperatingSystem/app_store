@@ -7,6 +7,7 @@ class InputTextWidget extends StatelessWidget {
   final bool? obscureText;
   final String? initialValue;
   final Widget? suffixIcon;
+  final void Function(String)? onPressed;
   const InputTextWidget({
     super.key,
     required this.labelText,
@@ -15,6 +16,7 @@ class InputTextWidget extends StatelessWidget {
     this.obscureText,
     this.initialValue,
     this.suffixIcon,
+    this.onPressed,
   });
 
   @override
@@ -22,6 +24,7 @@ class InputTextWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TextFormField(
+        onFieldSubmitted: onPressed,
         initialValue: initialValue,
         controller: controller,
         obscureText: obscureText ?? false,

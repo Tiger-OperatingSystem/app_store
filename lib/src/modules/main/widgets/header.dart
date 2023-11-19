@@ -14,7 +14,7 @@ class HeaderWidget extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: const LogoWidget(),
       title: Text(
-        "Central de Aplicações",
+        "Central de Programas",
         style: Theme.of(context).textTheme.titleSmall,
       ),
       bottom: const MenuTab(),

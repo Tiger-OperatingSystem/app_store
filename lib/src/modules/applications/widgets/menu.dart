@@ -1,38 +1,22 @@
-import 'package:app_store/src/core/navigation.dart';
+
 import 'package:app_store/src/modules/applications/categories/new_view.dart';
 import 'package:app_store/src/modules/applications/categories/popular_view.dart';
+import 'package:app_store/src/modules/applications/widgets/items_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MenuWidget extends StatelessWidget {
   const MenuWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final navigation = context.read<Navigation>();
     Map<int, Widget> menu = {
-      0: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.auto_graph_rounded, size: 18),
-        ),
-        title: const Text("Populares",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () =>
-            navigation.pageView(const CategoriesPopularView(), context),
+      0: const ItemMenuWidget(
+        title: "Populares",
+        page: CategoriesPopularView(),
       ),
-      1: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.celebration_outlined, size: 18),
-        ),
-        title: const Text("Recem adicionados",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () => navigation.pageView(const CategoriesNewView(), context),
+      1: const ItemMenuWidget(
+        title: "Recem adicionados",
+        page: CategoriesNewView(),
       ),
       2: ListTile(
           leading: CircleAvatar(

@@ -51,6 +51,9 @@ class CardApplicationsWiget extends StatelessWidget {
           ),
           ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12))
+                    ),
                       elevation: 0,
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       backgroundColor: Theme.of(context).colorScheme.primary),

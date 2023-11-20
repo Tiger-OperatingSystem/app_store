@@ -10,7 +10,7 @@ class ItemMenuWidget extends StatelessWidget {
     super.key, 
     required this.title, 
     required this.page, 
-    required this.icon});
+    required this.icon,});
 
   @override
   Widget build(BuildContext context) {

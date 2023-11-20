@@ -1,8 +1,8 @@
-import 'package:app_store/src/modules/applications/categories/new_view.dart';
+import 'package:app_store/src/modules/applications/categories/popular_view.dart';
 import 'package:flutter/material.dart';
 
 class Navigation extends ChangeNotifier {
-  Widget currentView = const CategoriesNewView();
+  Widget currentView = const CategoriesPopularView();
   void pageView(Widget view, BuildContext context) {
     try {
       currentView = view;

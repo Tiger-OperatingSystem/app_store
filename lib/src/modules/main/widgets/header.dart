@@ -12,6 +12,7 @@ class HeaderWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+
       leading: const LogoWidget(),
       title: Text(
         "Central de Programas",
@@ -20,6 +21,7 @@ class HeaderWidget extends StatelessWidget implements PreferredSizeWidget {
       bottom: const MenuTab(),
       flexibleSpace: GestureDetector(
         onDoubleTap: () => _maximize(windowManager),
+        onPanStart: (drag) => _moveWindow(windowManager),
       ),
       actions: [
         Container(
@@ -51,6 +53,14 @@ class HeaderWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(120);
+}
+
+Future<void> _moveWindow(WindowManager windowManager) async {
+  try {
+    await windowManager.startDragging();
+  } catch (e) {
+    rethrow;
+  }
 }
 
 Future<void> _minimize(WindowManager windowManager) async {

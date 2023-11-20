@@ -3,19 +3,19 @@ import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/widgets/card_applications.dart';
 import 'package:flutter/material.dart';
 
-class CategoriesPopularView extends StatefulWidget {
-  const CategoriesPopularView({super.key});
+class CategoriesRecentlyUpdatedView extends StatefulWidget {
+  const CategoriesRecentlyUpdatedView({super.key});
 
   @override
-  State<CategoriesPopularView> createState() => _CategoriesPopularViewState();
+  State<CategoriesRecentlyUpdatedView> createState() => _CategoriesRecentlyUpdatedViewState();
 }
 
 List _itemsWithIcon = [];
 
-class _CategoriesPopularViewState extends State<CategoriesPopularView> {
+class _CategoriesRecentlyUpdatedViewState extends State<CategoriesRecentlyUpdatedView> {
   final String categoryName = "Populares";
 
-  final String endpoint = "collection/popular";
+  final String endpoint = "collection/recently-updated";
 
 
   @override

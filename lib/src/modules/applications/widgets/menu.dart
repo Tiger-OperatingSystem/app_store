@@ -1,125 +1,72 @@
-import 'package:app_store/src/core/navigation.dart';
+
+import 'package:app_store/src/modules/applications/categories/development_view.dart';
+import 'package:app_store/src/modules/applications/categories/education_view.dart';
+import 'package:app_store/src/modules/applications/categories/graphics_view.dart';
+import 'package:app_store/src/modules/applications/categories/networking_view.dart';
 import 'package:app_store/src/modules/applications/categories/new_view.dart';
+import 'package:app_store/src/modules/applications/categories/office_view.dart';
 import 'package:app_store/src/modules/applications/categories/popular_view.dart';
+import 'package:app_store/src/modules/applications/categories/recently_updated_view.dart';
+import 'package:app_store/src/modules/applications/categories/science_view.dart';
+import 'package:app_store/src/modules/applications/categories/utility_view.dart';
+import 'package:app_store/src/modules/applications/widgets/items_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MenuWidget extends StatelessWidget {
   const MenuWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final navigation = context.read<Navigation>();
     Map<int, Widget> menu = {
-      0: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.auto_graph_rounded, size: 18),
-        ),
-        title: const Text("Populares",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () =>
-            navigation.pageView(const CategoriesPopularView(), context),
+      0: const ItemMenuWidget(
+        title: "Populares",
+        page: CategoriesPopularView(),
+        icon: Icons.auto_graph,
       ),
-      1: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.celebration_outlined, size: 18),
-        ),
-        title: const Text("Recem adicionados",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () => navigation.pageView(const CategoriesNewView(), context),
+      1: const ItemMenuWidget(
+        title: "Recem adicionados",
+        page: CategoriesNewView(),
+        icon: Icons.celebration,
       ),
-      2: ListTile(
-          leading: CircleAvatar(
-            maxRadius: 16,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            child: const Icon(Icons.update, size: 18),
-          ),
-          title: const Text("Recem atualizados",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-          onTap: () {}),
-      3: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.work, size: 18),
-        ),
-        title: const Text("Produtividade",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () {},
+      2: const ItemMenuWidget(
+        title: "Recem atualizados",
+        page: CategoriesRecentlyUpdatedView(),
+        icon: Icons.history,
       ),
-      4: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.photo_album, size: 18),
-        ),
-        title: const Text("Gráficos & Fotografia",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () {},
+      3: const ItemMenuWidget(
+        title: "Produtividade",
+        page: CategoriesOfficeView(),
+        icon: Icons.work,
       ),
-      5: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.book, size: 18),
-        ),
-        title: const Text("Educação",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () {},
+      4:  const ItemMenuWidget(
+        title: "Gráficos e Fotografia",
+        page: CategoriesGraphicsView(),
+        icon: Icons.photo,
       ),
-      6: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.interests_rounded, size: 18),
-        ),
-        title: const Text("Networking",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () {},
+      5: const ItemMenuWidget(
+        title: "Educação",
+        page: CategoriesEducationView(),
+        icon: Icons.book,
       ),
-      7: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.work, size: 18),
-        ),
-        title: const Text("Desenvolvimento",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () {},
+      6: const ItemMenuWidget(
+        title: "Networking",
+        page: CategoriesNetworkingView(),
+        icon: Icons.work,
       ),
-      8: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.biotech, size: 18),
-        ),
-        title: const Text("Ciência",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () {},
+      7: const ItemMenuWidget(
+        title: "Desenvolvimento",
+        page: CategoriesDevelopmentView(),
+        icon: Icons.build,
       ),
-      9: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.system_update_tv_outlined, size: 18),
-        ),
-        title: const Text("Utiliitários",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () {},
+      8: const ItemMenuWidget(
+        title: "Ciência",
+        page: CategoriesScienceView(),
+        icon: Icons.biotech,
+      ),
+      9: const ItemMenuWidget(
+        title: "Utilitários",
+        page: CategoriesUtilityView(),
+        icon: Icons.system_update_tv_outlined,
       ),
     };
 

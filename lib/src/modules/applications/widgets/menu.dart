@@ -1,5 +1,6 @@
 import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/categories/new_view.dart';
+import 'package:app_store/src/modules/applications/categories/popular_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,8 @@ class MenuWidget extends StatelessWidget {
         ),
         title: const Text("Populares",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () {},
+        onTap: () =>
+            navigation.pageView(const CategoriesPopularView(), context),
       ),
       1: ListTile(
         leading: CircleAvatar(

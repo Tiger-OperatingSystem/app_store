@@ -1,6 +1,7 @@
 
 import 'package:app_store/src/modules/applications/categories/new_view.dart';
 import 'package:app_store/src/modules/applications/categories/popular_view.dart';
+import 'package:app_store/src/modules/applications/categories/recently_updated_view.dart';
 import 'package:app_store/src/modules/applications/widgets/items_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -13,21 +14,18 @@ class MenuWidget extends StatelessWidget {
       0: const ItemMenuWidget(
         title: "Populares",
         page: CategoriesPopularView(),
+        icon: Icons.auto_graph,
       ),
       1: const ItemMenuWidget(
         title: "Recem adicionados",
         page: CategoriesNewView(),
+        icon: Icons.celebration,
       ),
-      2: ListTile(
-          leading: CircleAvatar(
-            maxRadius: 16,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            child: const Icon(Icons.update, size: 18),
-          ),
-          title: const Text("Recem atualizados",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-          onTap: () {}),
+      2: const ItemMenuWidget(
+        title: "Recem atualizados",
+        page: CategoriesRecentyUpdatedView(),
+        icon: Icons.history,
+      ),
       3: ListTile(
         leading: CircleAvatar(
           maxRadius: 16,

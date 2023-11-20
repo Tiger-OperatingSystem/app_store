@@ -1,3 +1,6 @@
+import 'package:app_store/src/modules/applications/applications_view.dart';
+import 'package:app_store/src/modules/discovery/discovery_view.dart';
+import 'package:app_store/src/modules/installed/installed_view.dart';
 import 'package:app_store/src/modules/main/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -40,9 +43,11 @@ class _MainViewState extends State<MainView> with WindowListener {
           decoration: BoxDecoration(
             border: Border.all(),
           ),
-          child: Center(
-            child: Text("Discovery TigerOS views"),
-          ),
+          child: TabBarView(children: [
+            const DiscoveryView(),
+            ApplicationsView(searchAplication: ""),
+            const InstalledView(),
+          ]),
         ),
       ),
     );

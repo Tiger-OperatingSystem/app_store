@@ -2,7 +2,8 @@ import 'package:app_store/src/widgets/input_text.dart';
 import 'package:flutter/material.dart';
 
 class SearchPackageWidget extends StatelessWidget {
-  SearchPackageWidget({super.key});
+  final void Function(String)? onPressed;
+  SearchPackageWidget({super.key, this.onPressed});
 
   final _controller = TextEditingController();
 
@@ -11,23 +12,23 @@ class SearchPackageWidget extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SizedBox(height: 10),
+        const SizedBox(height: 20),
         SizedBox(
-          height: 38,
-          width: 380,
+          height: 48,
+          width: 480,
           child: InputTextWidget(
+            onPressed: onPressed,
             controller: _controller,
             suffixIcon: IconButton(
-              isSelected: false,
-              iconSize: 16,
-              onPressed: (){
-                _controller.clear();
-              }, 
-              icon: const Icon(Icons.clear)
-              ),
-              labelText: "Pesquisar", 
-              iconData: Icons.search,
-            ),
+                isSelected: false,
+                iconSize: 16,
+                onPressed: () {
+                  _controller.clear();
+                },
+                icon: const Icon(Icons.clear)),
+            labelText: "Pesquisar por aplicação, pressione enter.",
+            iconData: Icons.search,
+          ),
         )
       ],
     );

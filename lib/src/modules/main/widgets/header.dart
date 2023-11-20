@@ -1,6 +1,5 @@
 import 'package:app_store/src/modules/main/widgets/logo.dart';
 import 'package:app_store/src/modules/main/widgets/menu_tab.dart';
-import 'package:app_store/src/modules/main/widgets/search_package.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -14,8 +13,11 @@ class HeaderWidget extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: const LogoWidget(),
-      title: SearchPackageWidget(),
-      bottom: MenuTab(),
+      title: Text(
+        "Central de Programas",
+        style: Theme.of(context).textTheme.titleSmall,
+      ),
+      bottom: const MenuTab(),
       flexibleSpace: GestureDetector(
         onDoubleTap: () => _maximize(windowManager),
       ),

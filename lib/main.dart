@@ -1,3 +1,5 @@
+import 'package:app_store/src/core/navigation.dart';
+import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:app_store/app_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,11 @@ Future<void> main() async {
   });
 
   runApp(
-    const AppWidget(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Navigation()),
+      ],
+      child: const AppWidget(),
+    ),
   );
 }

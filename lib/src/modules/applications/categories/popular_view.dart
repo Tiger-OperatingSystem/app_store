@@ -3,11 +3,32 @@ import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/widgets/card_applications.dart';
 import 'package:flutter/material.dart';
 
-class CategoriesPopularView extends StatelessWidget {
+class CategoriesPopularView extends StatefulWidget {
   const CategoriesPopularView({super.key});
 
+  @override
+  State<CategoriesPopularView> createState() => _CategoriesPopularViewState();
+}
+
+List _itemsWithIcon = [];
+
+class _CategoriesPopularViewState extends State<CategoriesPopularView> {
   final String categoryName = "Populares";
+
   final String endpoint = "popular";
+
+
+  @override
+  void initState() {
+    _getItemsWithIcon(endpoint);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _itemsWithIcon = [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +43,33 @@ class CategoriesPopularView extends StatelessWidget {
         return SizedBox(
           height: MediaQuery.of(context).size.height / 1.2,
           child: GridView.builder(
+            
             shrinkWrap: true,
-            itemCount: snapshot.data!.length,
+            itemCount: _itemsWithIcon.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 5),
             itemBuilder: (context, index) {
-              final applicationModel =
-                  ApplicationsModel.fromJson(snapshot.data?[index] ?? {});
-              if (applicationModel.iconDesktopUrl != null) {
-                return CardApplicationsWiget(
-                    applicationModel: applicationModel);
-              }
-
-              return SizedBox();
+              final applicationModel = ApplicationsModel.fromJson(_itemsWithIcon[index]);
+              return CardApplicationsWiget(applicationModel: applicationModel);
             },
           ),
         );
       },
     );
+  }
+}
+
+Future<List> _getItemsWithIcon(String endpoint) async {
+  try {
+    final data = await Http.get(endpoint);
+    for (var element in data) { 
+      if(element['iconDesktopUrl'] != null) {
+       _itemsWithIcon.add(element);
+       print(_itemsWithIcon);
+      }
+    }
+    return _itemsWithIcon;
+  } catch (e) {
+    rethrow;
   }
 }

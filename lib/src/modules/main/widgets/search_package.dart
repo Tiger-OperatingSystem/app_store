@@ -14,7 +14,7 @@ class SearchPackageWidget extends StatelessWidget {
       children: [
         const SizedBox(height: 20),
         SizedBox(
-          height: 38,
+          height: 48,
           width: 480,
           child: InputTextWidget(
             onPressed: onPressed,

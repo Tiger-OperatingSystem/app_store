@@ -1,23 +1,17 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:app_store/src/modules/main/widgets/menu.dart';
-import 'package:app_store/src/modules/main/widgets/search_package.dart';
+import 'package:app_store/src/core/navigation.dart';
+import 'package:app_store/src/modules/applications/widgets/menu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ApplicationsView extends StatefulWidget {
+class ApplicationsView extends StatelessWidget {
   String? searchAplication;
   ApplicationsView({
     super.key,
     this.searchAplication,
   });
 
-  @override
-  State<ApplicationsView> createState() => _ApplicationsViewState();
-}
-
-final isSearch = ValueNotifier(false);
-
-class _ApplicationsViewState extends State<ApplicationsView> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,26 +23,25 @@ class _ApplicationsViewState extends State<ApplicationsView> {
       child: Row(
         children: [
           // Menu side
-          const Expanded(
-            child: MenuWidget(),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onInverseSurface),
+              child: const MenuWidget(),
+            ),
           ),
           // Content side
           Expanded(
             flex: 4,
-            child: Column(
-              children: [
-                Center(
-                  child: SearchPackageWidget(
-                    onPressed: (value) {
-                      setState(() {
-                        widget.searchAplication = value;
-                        isSearch.value = true;
-                      });
-                    },
-                  ),
-                ),
-                _switch(isSearch.value, widget.searchAplication ?? ""),
-              ],
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  context.watch<Navigation>().currentView,
+                ],
+              ),
             ),
           ),
         ],
@@ -57,13 +50,15 @@ class _ApplicationsViewState extends State<ApplicationsView> {
   }
 }
 
-Widget _switch(bool isSearch, String searchAplication) {
+final isSearch = ValueNotifier(false);
+
+Widget _switch(bool isSearch, String searchAplication, BuildContext context) {
   try {
     if (isSearch) {
       return Center(child: Text(searchAplication));
     }
 
-    return const Center(child: Text("Applications page"));
+    return context.watch<Navigation>().currentView;
   } catch (e) {
     rethrow;
   }

@@ -15,7 +15,7 @@ List _itemsWithIcon = [];
 class _CategoriesPopularViewState extends State<CategoriesPopularView> {
   final String categoryName = "Populares";
 
-  final String endpoint = "popular";
+  final String endpoint = "collection/popular";
 
 
   @override

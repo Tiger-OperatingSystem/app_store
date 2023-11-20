@@ -3,11 +3,11 @@ import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/widgets/card_applications.dart';
 import 'package:flutter/material.dart';
 
-class CategoriesNewView extends StatelessWidget {
-  const CategoriesNewView({super.key});
+class CategoriesOfficeView extends StatelessWidget {
+  const CategoriesOfficeView({super.key});
 
-  final String categoryName = "Recem adicionados";
-  final String endpoint = "collection/new";
+  final String categoryName = "Produtividade";
+  final String endpoint = "category/Office";
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 
 import 'package:app_store/src/modules/applications/categories/new_view.dart';
+import 'package:app_store/src/modules/applications/categories/office_view.dart';
 import 'package:app_store/src/modules/applications/categories/popular_view.dart';
 import 'package:app_store/src/modules/applications/categories/recently_updated_view.dart';
 import 'package:app_store/src/modules/applications/widgets/items_menu.dart';
@@ -23,19 +24,13 @@ class MenuWidget extends StatelessWidget {
       ),
       2: const ItemMenuWidget(
         title: "Recem atualizados",
-        page: CategoriesRecentyUpdatedView(),
+        page: CategoriesRecentlyUpdatedView(),
         icon: Icons.history,
       ),
-      3: ListTile(
-        leading: CircleAvatar(
-          maxRadius: 16,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          child: const Icon(Icons.work, size: 18),
-        ),
-        title: const Text("Produtividade",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        onTap: () {},
+      3: const ItemMenuWidget(
+        title: "Produtividade",
+        page: CategoriesOfficeView(),
+        icon: Icons.work,
       ),
       4: ListTile(
         leading: CircleAvatar(

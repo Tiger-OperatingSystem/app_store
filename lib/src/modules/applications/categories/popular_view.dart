@@ -36,8 +36,12 @@ class _CategoriesPopularViewState extends State<CategoriesPopularView> {
       future: Http.get(endpoint),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
         return SizedBox(
@@ -46,8 +50,9 @@ class _CategoriesPopularViewState extends State<CategoriesPopularView> {
             
             shrinkWrap: true,
             itemCount: _itemsWithIcon.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, 
+                childAspectRatio: 2),
             itemBuilder: (context, index) {
               final applicationModel = ApplicationsModel.fromJson(_itemsWithIcon[index]);
               return CardApplicationsWiget(applicationModel: applicationModel);
@@ -65,7 +70,6 @@ Future<List> _getItemsWithIcon(String endpoint) async {
     for (var element in data) { 
       if(element['iconDesktopUrl'] != null) {
        _itemsWithIcon.add(element);
-       print(_itemsWithIcon);
       }
     }
     return _itemsWithIcon;

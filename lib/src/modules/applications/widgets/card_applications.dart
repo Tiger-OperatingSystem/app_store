@@ -10,43 +10,46 @@ class CardApplicationsWiget extends StatelessWidget {
     return Card(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: Image.network(
-              applicationModel.iconDesktopUrl!,
-              fit: BoxFit.scaleDown,
-              width: MediaQuery.of(context).size.width / 15,
-              height: MediaQuery.of(context).size.height / 15,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+               Expanded(
+                 child: Image.network(
+                  applicationModel.iconDesktopUrl!, 
+                  width: 50, 
+                  height: 50),
+               ),
+               Expanded(
+                flex: 2,
+                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     Text(applicationModel.name!,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        )),
+                         SizedBox(
+                      child: Text(
+                        applicationModel.summary!,
+                        maxLines: 2,
+                        style: TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ],
+                 ),
+               ),
+              ],
             ),
           ),
-          Expanded(
-            child: Text(applicationModel.name!,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                )),
-          ),
-          Expanded(
-            child: SizedBox(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  applicationModel.summary!,
-                  maxLines: 2,
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton.icon(
+          ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -54,8 +57,6 @@ class CardApplicationsWiget extends StatelessWidget {
                   onPressed: () {},
                   icon: const Icon(Icons.download),
                   label: const Text("Instalar")),
-            ),
-          ),
         ],
       ),
     );

@@ -15,8 +15,12 @@ class CategoriesNewView extends StatelessWidget {
       future: Http.get(endpoint),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
         return SizedBox(
@@ -24,8 +28,9 @@ class CategoriesNewView extends StatelessWidget {
           child: GridView.builder(
             shrinkWrap: true,
             itemCount: snapshot.data!.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5),
+            gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, 
+                childAspectRatio: 2),
             itemBuilder: (context, index) {
               final applicationModel =
                   ApplicationsModel.fromJson(snapshot.data?[index] ?? {});

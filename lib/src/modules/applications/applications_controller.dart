@@ -1,5 +1,5 @@
 import 'package:app_store/src/core/navigation.dart';
-import 'package:app_store/src/modules/applications/applications_search_view.dart';
+import 'package:app_store/src/modules/applications/widgets/build_applications.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +8,8 @@ class ApplicationsController extends ChangeNotifier {
     final navigation = context.read<Navigation>();
 
     try {
-      navigation.pageView(ApplicationsSearchView(search: search), context);
+      navigation.pageView(
+          BuildApplicationsWidget(endpoint: "search/$search"), context);
       notifyListeners();
     } catch (e) {
       rethrow;

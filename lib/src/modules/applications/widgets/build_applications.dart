@@ -1,26 +1,23 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:app_store/src/core/http.dart';
-import 'package:app_store/src/modules/applications/applications_controller.dart';
+import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/widgets/card_applications.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ApplicationsSearchView extends StatelessWidget {
-  String search;
-  ApplicationsSearchView({
+class BuildApplicationsWidget extends StatelessWidget {
+  String endpoint;
+  BuildApplicationsWidget({
     super.key,
-    required this.search,
+    required this.endpoint,
   });
-
-  final String categoryName = "Pesquisa";
-  late String endpoint = "search/$search";
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: context.watch<ApplicationsController>(),
+      animation: context.watch<Navigation>(),
       builder: (context, child) {
         List itemsWithIcon = [];
         _getItemsWithIcon(endpoint, itemsWithIcon);

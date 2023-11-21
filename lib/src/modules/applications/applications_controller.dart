@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ApplicationsController extends ChangeNotifier {
-  static Future<void> search(String search, BuildContext context) async {
+  Future<void> search(String search, BuildContext context) async {
     final navigation = context.read<Navigation>();
 
     try {
       navigation.pageView(ApplicationsSearchView(search: search), context);
+      notifyListeners();
     } catch (e) {
       rethrow;
     }

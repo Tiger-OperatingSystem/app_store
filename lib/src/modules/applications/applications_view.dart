@@ -14,7 +14,7 @@ class ApplicationsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Row(
@@ -33,14 +33,21 @@ class ApplicationsView extends StatelessWidget {
             child: Padding(
               padding:
                   const EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SearchPackageWidget(onPressed: (value) {
-                    ApplicationsController.search(value, context);
-                  }),
-                  context.watch<Navigation>().currentView,
-                ],
+              child: AnimatedBuilder(
+                animation: context.watch<Navigation>(),
+                builder: (context, child) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SearchPackageWidget(onPressed: (value) {
+                        context
+                            .read<ApplicationsController>()
+                            .search(value, context);
+                      }),
+                      context.watch<Navigation>().currentView,
+                    ],
+                  );
+                },
               ),
             ),
           ),

@@ -37,13 +37,13 @@ class _MainViewState extends State<MainView> with WindowListener {
         ),
 
         //Content
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: TabBarView(children: [
-            const DiscoveryView(),
+          child: const TabBarView(children: [
+            DiscoveryView(),
             ApplicationsView(),
-            const InstalledView(),
+            InstalledView(),
           ]),
         ),
       ),

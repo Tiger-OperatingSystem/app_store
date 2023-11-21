@@ -1,3 +1,5 @@
+import 'package:app_store/main.dart';
+import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,8 @@ class CardApplicationsWiget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasInstalled = ApplicationsController.hasInstalled(
+        applicationModel, installedApplications);
     return Card(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -54,11 +58,15 @@ class CardApplicationsWiget extends StatelessWidget {
                           bottomLeft: Radius.circular(12),
                           bottomRight: Radius.circular(12))),
                   elevation: 0,
-                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                  backgroundColor: Theme.of(context).colorScheme.primary),
+                  foregroundColor: !hasInstalled
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onErrorContainer,
+                  backgroundColor: !hasInstalled
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.errorContainer),
               onPressed: () {},
-              icon: const Icon(Icons.download),
-              label: const Text("Instalar")),
+              icon: Icon(!hasInstalled ? Icons.download : Icons.delete),
+              label: Text(!hasInstalled ? "Instalar" : "Remover")),
         ],
       ),
     );

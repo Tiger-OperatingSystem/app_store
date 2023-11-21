@@ -34,8 +34,8 @@ class ApplicationsView extends StatelessWidget {
             child: Padding(
               padding:
                   const EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
-              child: AnimatedBuilder(
-                animation: context.watch<Navigation>(),
+              child: ListenableBuilder(
+                listenable: context.watch<Navigation>(),
                 builder: (context, child) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -42,7 +42,7 @@ class _MainViewState extends State<MainView> with WindowListener {
           height: MediaQuery.of(context).size.height,
           child: TabBarView(children: [
             const DiscoveryView(),
-            ApplicationsView(searchAplication: ""),
+            ApplicationsView(),
             const InstalledView(),
           ]),
         ),

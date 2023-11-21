@@ -1,15 +1,15 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:app_store/src/core/navigation.dart';
+import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/widgets/menu.dart';
+import 'package:app_store/src/modules/main/widgets/search_package.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ApplicationsView extends StatelessWidget {
-  String? searchAplication;
-  ApplicationsView({
+  const ApplicationsView({
     super.key,
-    this.searchAplication,
   });
 
   @override
@@ -36,6 +36,9 @@ class ApplicationsView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SearchPackageWidget(onPressed: (value) {
+                    ApplicationsController.search(value, context);
+                  }),
                   context.watch<Navigation>().currentView,
                 ],
               ),
@@ -44,19 +47,5 @@ class ApplicationsView extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-final isSearch = ValueNotifier(false);
-
-Widget _switch(bool isSearch, String searchAplication, BuildContext context) {
-  try {
-    if (isSearch) {
-      return Center(child: Text(searchAplication));
-    }
-
-    return context.watch<Navigation>().currentView;
-  } catch (e) {
-    rethrow;
   }
 }

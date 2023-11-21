@@ -9,12 +9,11 @@ class MenuTab extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(10);
+  Size get preferredSize => const Size.fromHeight(10);
 }
 
 Map<int, Widget> _menu = {
-  0: Tab(icon: Icon(Icons.explore), text: "Descubra"),
-  1: Tab(icon: Icon(Icons.shopping_bag), text: "Programas"),
-  2: Tab(icon: Icon(Icons.cloud_download_rounded), text: "Instalados"),
+  0: const Tab(icon: Icon(Icons.explore), text: "Descubra"),
+  1: const Tab(icon: Icon(Icons.shopping_bag), text: "Programas"),
+  2: const Tab(icon: Icon(Icons.cloud_download_rounded), text: "Instalados"),
 };

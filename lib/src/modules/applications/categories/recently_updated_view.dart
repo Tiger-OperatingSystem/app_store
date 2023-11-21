@@ -7,16 +7,17 @@ class CategoriesRecentlyUpdatedView extends StatefulWidget {
   const CategoriesRecentlyUpdatedView({super.key});
 
   @override
-  State<CategoriesRecentlyUpdatedView> createState() => _CategoriesRecentlyUpdatedViewState();
+  State<CategoriesRecentlyUpdatedView> createState() =>
+      _CategoriesRecentlyUpdatedViewState();
 }
 
 List _itemsWithIcon = [];
 
-class _CategoriesRecentlyUpdatedViewState extends State<CategoriesRecentlyUpdatedView> {
+class _CategoriesRecentlyUpdatedViewState
+    extends State<CategoriesRecentlyUpdatedView> {
   final String categoryName = "Populares";
 
   final String endpoint = "collection/recently-updated";
-
 
   @override
   void initState() {
@@ -36,25 +37,21 @@ class _CategoriesRecentlyUpdatedViewState extends State<CategoriesRecentlyUpdate
       future: Http.get(endpoint),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         }
-        return SizedBox(
-          height: MediaQuery.of(context).size.height / 1.2,
+        return Expanded(
           child: GridView.builder(
-            
             shrinkWrap: true,
             itemCount: _itemsWithIcon.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, 
-                childAspectRatio: 2),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 2,
+            ),
             itemBuilder: (context, index) {
-              final applicationModel = ApplicationsModel.fromJson(_itemsWithIcon[index]);
+              final applicationModel =
+                  ApplicationsModel.fromJson(_itemsWithIcon[index]);
               return CardApplicationsWiget(applicationModel: applicationModel);
             },
           ),
@@ -67,9 +64,9 @@ class _CategoriesRecentlyUpdatedViewState extends State<CategoriesRecentlyUpdate
 Future<List> _getItemsWithIcon(String endpoint) async {
   try {
     final data = await Http.get(endpoint);
-    for (var element in data) { 
-      if(element['iconDesktopUrl'] != null) {
-       _itemsWithIcon.add(element);
+    for (var element in data) {
+      if (element['iconDesktopUrl'] != null) {
+        _itemsWithIcon.add(element);
       }
     }
     return _itemsWithIcon;

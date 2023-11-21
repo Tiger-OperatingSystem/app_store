@@ -17,7 +17,6 @@ class _CategoriesPopularViewState extends State<CategoriesPopularView> {
 
   final String endpoint = "collection/popular";
 
-
   @override
   void initState() {
     _getItemsWithIcon(endpoint);
@@ -36,25 +35,21 @@ class _CategoriesPopularViewState extends State<CategoriesPopularView> {
       future: Http.get(endpoint),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         }
-        return SizedBox(
-          height: MediaQuery.of(context).size.height / 1.2,
+        return Expanded(
           child: GridView.builder(
-            
             shrinkWrap: true,
             itemCount: _itemsWithIcon.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, 
-                childAspectRatio: 2),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 2,
+            ),
             itemBuilder: (context, index) {
-              final applicationModel = ApplicationsModel.fromJson(_itemsWithIcon[index]);
+              final applicationModel =
+                  ApplicationsModel.fromJson(_itemsWithIcon[index]);
               return CardApplicationsWiget(applicationModel: applicationModel);
             },
           ),
@@ -67,9 +62,9 @@ class _CategoriesPopularViewState extends State<CategoriesPopularView> {
 Future<List> _getItemsWithIcon(String endpoint) async {
   try {
     final data = await Http.get(endpoint);
-    for (var element in data) { 
-      if(element['iconDesktopUrl'] != null) {
-       _itemsWithIcon.add(element);
+    for (var element in data) {
+      if (element['iconDesktopUrl'] != null) {
+        _itemsWithIcon.add(element);
       }
     }
     return _itemsWithIcon;

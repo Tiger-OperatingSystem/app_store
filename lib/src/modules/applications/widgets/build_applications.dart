@@ -16,16 +16,15 @@ class BuildApplicationsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: context.watch<Navigation>(),
-      builder: (context, child) {
-        List itemsWithIcon = [];
-        _getItemsWithIcon(endpoint, itemsWithIcon);
+    List itemsWithIcon = [];
 
+    return ListenableBuilder(
+      listenable: context.watch<Navigation>(),
+      builder: (context, child) {
         return FutureBuilder(
-          future: Http.get(endpoint),
+          future: _getItemsWithIcon(endpoint, itemsWithIcon),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -57,12 +56,16 @@ class BuildApplicationsWidget extends StatelessWidget {
 Future<List> _getItemsWithIcon(String endpoint, List list) async {
   try {
     final data = await Http.get(endpoint);
-    for (var element in data) {
-      if (element['iconDesktopUrl'] != null) {
-        list.add(element);
+
+    return await Future.delayed(Duration.zero, () {
+      for (var element in data) {
+        if (element['iconDesktopUrl'] != null) {
+          list.add(element);
+        }
       }
-    }
-    return list;
+
+      return list;
+    });
   } catch (e) {
     rethrow;
   }

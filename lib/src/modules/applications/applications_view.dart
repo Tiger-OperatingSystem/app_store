@@ -14,6 +14,7 @@ class ApplicationsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final applicationsController = context.read<ApplicationsController>();
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -39,11 +40,13 @@ class ApplicationsView extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SearchPackageWidget(onPressed: (value) {
-                        context
-                            .read<ApplicationsController>()
-                            .search(value, context);
-                      }),
+                      SearchPackageWidget(
+                        onPressed: (value) {
+                          applicationsController.search(value, context);
+                        },
+                      ),
+
+                      // View
                       context.watch<Navigation>().currentView,
                     ],
                   );

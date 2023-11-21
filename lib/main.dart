@@ -1,4 +1,5 @@
 import 'package:app_store/src/core/navigation.dart';
+import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:app_store/app_widget.dart';
@@ -16,7 +17,6 @@ Future<void> main() async {
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-
     await windowManager.setTitle('Central de Aplicações');
     await windowManager.maximize();
     await windowManager.show();
@@ -27,6 +27,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Navigation()),
+        ChangeNotifierProvider(create: (context) => ApplicationsController()),
       ],
       child: const AppWidget(),
     ),

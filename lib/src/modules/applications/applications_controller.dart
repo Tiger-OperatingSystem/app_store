@@ -1,10 +1,10 @@
-import 'dart:io';
 import 'package:app_store/main.dart';
 import 'package:app_store/src/core/http.dart';
 import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/widgets/build_applications.dart';
 import 'package:flutter/material.dart';
+import 'package:process_run/shell.dart';
 import 'package:provider/provider.dart';
 
 class ApplicationsController extends ChangeNotifier {
@@ -29,12 +29,12 @@ class ApplicationsController extends ChangeNotifier {
     }
   }
 
-  Future<bool> hasInstalled(ApplicationsModel applicationsModel) async {
+  Future<bool> hasInstalledFlatpak(ApplicationsModel applicationsModel) async {
     try {
       late bool hasInstalled;
-      final result = await Process.run("flatpak", ["list"]);
+      final result = await shell.run('''ls /var/lib/flatpak/app/''');
 
-      if (result.stdout.toString().contains(applicationsModel.flatpakAppId!)) {
+      if (result.outText.toString().contains(applicationsModel.flatpakAppId!)) {
         hasInstalled = true;
       } else {
         hasInstalled = false;

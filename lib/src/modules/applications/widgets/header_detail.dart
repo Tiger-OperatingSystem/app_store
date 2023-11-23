@@ -47,7 +47,8 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
               listenable: context.watch<ApplicationsController>(),
               builder: (context, child) {
                 return FutureBuilder(
-                  future: applicationsController.hasInstalled(applicationModel),
+                  future: applicationsController
+                      .hasInstalledFlatpak(applicationModel),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());

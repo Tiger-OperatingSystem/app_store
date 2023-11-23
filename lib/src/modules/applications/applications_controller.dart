@@ -23,32 +23,21 @@ class ApplicationsController extends ChangeNotifier {
       String flatpakAppId) async {
     try {
       final data = await Http.get(flatpakAppId);
-      return ApplicationsModel.fromJson(Map.from(data));
+      return ApplicationsModel.fromJson(data);
     } catch (e) {
       rethrow;
     }
   }
 
-  static Future<void> initGetInstalled(List installedApplications) async {
-    try {
-      final result = await Process.run("flatpak", ["list"]);
-      installedApplications.add(result.stdout);
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  static bool hasInstalled(
-      ApplicationsModel applicationsModel, List applications) {
+  Future<bool> hasInstalled(ApplicationsModel applicationsModel) async {
     try {
       late bool hasInstalled;
+      final result = await Process.run("flatpak", ["list"]);
 
-      for (var elements in applications) {
-        if (elements.toString().contains(applicationsModel.flatpakAppId!)) {
-          return hasInstalled = true;
-        } else {
-          return hasInstalled = false;
-        }
+      if (result.stdout.toString().contains(applicationsModel.flatpakAppId!)) {
+        hasInstalled = true;
+      } else {
+        hasInstalled = false;
       }
 
       return hasInstalled;
@@ -57,24 +46,25 @@ class ApplicationsController extends ChangeNotifier {
     }
   }
 
-  static Future<void> installFlatpak(
-      ApplicationsModel applicationsModel) async {
+  Future<void> installFlatpak(ApplicationsModel applicationsModel) async {
     try {
       final result = await shell.run(
         '''flatpak-install-gui --override-appname="${applicationsModel.name}" ${applicationsModel.flatpakAppId}''',
       );
       result;
+      notifyListeners();
     } catch (e) {
       rethrow;
     }
   }
 
-  static Future<void> removeFlatpak(ApplicationsModel applicationsModel) async {
+  Future<void> removeFlatpak(ApplicationsModel applicationsModel) async {
     try {
       final result = await shell.run(
-        '''flatpak-install-gui --override-appname="${applicationsModel.name}" ${applicationsModel.flatpakAppId} --remove''',
+        '''flatpak-install-gui --override-appname="${applicationsModel.name}" --remove ${applicationsModel.flatpakAppId}''',
       );
       result;
+      notifyListeners();
     } catch (e) {
       rethrow;
     }

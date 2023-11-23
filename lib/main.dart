@@ -24,8 +24,6 @@ Future<void> main() async {
     await windowManager.focus();
   });
 
-  await ApplicationsController.initGetInstalled(installedApplications);
-
   runApp(
     MultiProvider(
       providers: [
@@ -37,5 +35,4 @@ Future<void> main() async {
   );
 }
 
-List installedApplications = [];
 var shell = Shell();

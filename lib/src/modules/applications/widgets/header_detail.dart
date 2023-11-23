@@ -1,7 +1,7 @@
-import 'package:app_store/main.dart';
 import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HeaderApplicationDetailWidget extends StatelessWidget {
   final ApplicationsModel applicationModel;
@@ -12,8 +12,7 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasInstalled = ApplicationsController.hasInstalled(
-        applicationModel, installedApplications);
+    final applicationsController = context.read<ApplicationsController>();
     return Container(
       padding: const EdgeInsets.all(22),
       child: Row(
@@ -44,18 +43,36 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
           SizedBox(
             height: 80,
             width: 220,
-            child: ElevatedButton.icon(
-                icon: !hasInstalled
-                    ? const Icon(Icons.download)
-                    : const Icon(Icons.delete),
-                onPressed: () => _installOrRemove(
-                      applicationModel,
-                      hasInstalled,
-                    ),
-                label: Text(
-                  !hasInstalled ? "Instalar" : "Remover",
-                  style: Theme.of(context).textTheme.titleMedium,
-                )),
+            child: ListenableBuilder(
+              listenable: context.watch<ApplicationsController>(),
+              builder: (context, child) {
+                return FutureBuilder(
+                  future: applicationsController.hasInstalled(applicationModel),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    final hasInstalled = snapshot.data!;
+
+                    return ElevatedButton.icon(
+                      icon: !hasInstalled
+                          ? const Icon(Icons.download)
+                          : const Icon(Icons.delete),
+                      onPressed: () => _installOrRemove(
+                        applicationModel,
+                        hasInstalled,
+                        applicationsController,
+                      ),
+                      label: Text(
+                        !hasInstalled ? "Instalar" : "Remover",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ),
 
           // Space
@@ -66,12 +83,13 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
   }
 }
 
-void _installOrRemove(ApplicationsModel applicationsModel, bool hasInstalled) {
+void _installOrRemove(ApplicationsModel applicationsModel, bool hasInstalled,
+    ApplicationsController applicationsController) {
   try {
     if (!hasInstalled) {
-      ApplicationsController.installFlatpak(applicationsModel);
+      applicationsController.installFlatpak(applicationsModel);
     } else {
-      ApplicationsController.removeFlatpak(applicationsModel);
+      applicationsController.removeFlatpak(applicationsModel);
     }
   } catch (e) {
     rethrow;

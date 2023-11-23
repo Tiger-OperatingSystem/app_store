@@ -1,5 +1,6 @@
 import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/applications_controller.dart';
+import 'package:process_run/shell.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:app_store/app_widget.dart';
@@ -37,3 +38,4 @@ Future<void> main() async {
 }
 
 List installedApplications = [];
+var shell = Shell();

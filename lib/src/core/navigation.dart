@@ -11,4 +11,12 @@ class Navigation extends ChangeNotifier {
       rethrow;
     }
   }
+
+  static void push(Widget view, BuildContext context) {
+    try {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => view));
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

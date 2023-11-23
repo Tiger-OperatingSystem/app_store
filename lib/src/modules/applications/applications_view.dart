@@ -3,12 +3,12 @@
 import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/widgets/menu.dart';
-import 'package:app_store/src/modules/main/widgets/search_package.dart';
+import 'package:app_store/src/modules/applications/widgets/search_package.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ApplicationsView extends StatelessWidget {
-  const ApplicationsView({
+class ApplicationsMainView extends StatelessWidget {
+  const ApplicationsMainView({
     super.key,
   });
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_store/src/core/http.dart';
 import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/widgets/build_applications.dart';
@@ -13,6 +14,16 @@ class ApplicationsController extends ChangeNotifier {
       navigation.pageView(
           BuildApplicationsWidget(endpoint: "search/$search"), context);
       notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<ApplicationsModel> getByFlatpakAppId(
+      String flatpakAppId) async {
+    try {
+      final data = await Http.get(flatpakAppId);
+      return ApplicationsModel.fromJson(Map.from(data));
     } catch (e) {
       rethrow;
     }
@@ -41,6 +52,28 @@ class ApplicationsController extends ChangeNotifier {
       }
 
       return hasInstalled;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static void installFlatpak(ApplicationsModel applicationsModel) {
+    try {
+      final result = Process.runSync("flatpak-install-gui", [
+        "--override-appname='${applicationsModel.name}' ${applicationsModel.flatpakAppId}"
+      ]);
+      result;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static void removeFlatpak(ApplicationsModel applicationsModel) {
+    try {
+      final result = Process.runSync("flatpak-install-gui", [
+        "--override-appname='${applicationsModel.name}' ${applicationsModel.flatpakAppId} --remove"
+      ]);
+      result;
     } catch (e) {
       rethrow;
     }

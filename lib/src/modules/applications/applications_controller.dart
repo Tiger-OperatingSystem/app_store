@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:app_store/main.dart';
 import 'package:app_store/src/core/http.dart';
 import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
@@ -57,22 +57,23 @@ class ApplicationsController extends ChangeNotifier {
     }
   }
 
-  static void installFlatpak(ApplicationsModel applicationsModel) {
+  static Future<void> installFlatpak(
+      ApplicationsModel applicationsModel) async {
     try {
-      final result = Process.runSync("flatpak-install-gui", [
-        "--override-appname='${applicationsModel.name}' ${applicationsModel.flatpakAppId}"
-      ]);
+      final result = await shell.run(
+        '''flatpak-install-gui --override-appname="${applicationsModel.name}" ${applicationsModel.flatpakAppId}''',
+      );
       result;
     } catch (e) {
       rethrow;
     }
   }
 
-  static void removeFlatpak(ApplicationsModel applicationsModel) {
+  static Future<void> removeFlatpak(ApplicationsModel applicationsModel) async {
     try {
-      final result = Process.runSync("flatpak-install-gui", [
-        "--override-appname='${applicationsModel.name}' ${applicationsModel.flatpakAppId} --remove"
-      ]);
+      final result = await shell.run(
+        '''flatpak-install-gui --override-appname="${applicationsModel.name}" ${applicationsModel.flatpakAppId} --remove''',
+      );
       result;
     } catch (e) {
       rethrow;

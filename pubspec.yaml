@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.1.1
   window_manager: ^0.3.7
   http: ^1.1.0
+  process_run: ^0.13.2
 
 dev_dependencies:
   flutter_test:

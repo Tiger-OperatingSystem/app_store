@@ -1,8 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:app_store/main.dart';
 import 'package:app_store/src/core/navigation.dart';
-import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/applications_details_view.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +11,6 @@ class CardApplicationsWiget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasInstalled = ApplicationsController.hasInstalled(
-        applicationModel, installedApplications);
     return GestureDetector(
       onTap: () => _details(applicationModel, context),
       child: Card(
@@ -59,20 +55,17 @@ class CardApplicationsWiget extends StatelessWidget {
             ),
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(12))),
-                    elevation: 0,
-                    foregroundColor: !hasInstalled
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.onErrorContainer,
-                    backgroundColor: !hasInstalled
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.errorContainer),
-                onPressed: () {},
-                icon: Icon(!hasInstalled ? Icons.download : Icons.delete),
-                label: Text(!hasInstalled ? "Instalar" : "Remover")),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12))),
+                  elevation: 0,
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                ),
+                onPressed: () => _details(applicationModel, context),
+                icon: const Icon(Icons.download),
+                label: const Text("Instalar")),
           ],
         ),
       ),

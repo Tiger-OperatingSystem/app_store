@@ -17,7 +17,7 @@ class InstalledController extends ChangeNotifier {
       final appsData = await _getApplicationsFlatpak();
 
       for (int i = 0; i < appsData.length; i++) {
-        final flatpakId = await _getAppDataXml('id');
+        final flatpakId = appsData;
         final name = await _getAppDataXml('name');
         final summary = await _getAppDataXml('summary');
         final iconDesktopUrl =

@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:app_store/main.dart';
 import 'package:app_store/src/core/http.dart';
 import 'package:app_store/src/core/navigation.dart';
+import 'package:app_store/src/handlers/exceptions.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/widgets/build_applications.dart';
 import 'package:flutter/material.dart';
@@ -69,4 +72,39 @@ class ApplicationsController extends ChangeNotifier {
       rethrow;
     }
   }
+
+  Future<bool> hasInstalledDebian(ApplicationsModel applicationsModel, BuildContext context) async {
+    try {
+
+      final name = applicationsModel.name!.replaceAll(RegExp(r' '), "-").toLowerCase();
+      final data = await shell.run("apt list --installed $name");
+
+      for(var element in data.outLines) {
+        if(element.contains(name)) {
+          return true;
+        }
+      }
+
+      return false;
+    } catch (e) {
+      throw CustomExceptionsWidget(e.toString(), context);
+    }
+  }
+
+  Future<bool> isDebianPackage(ApplicationsModel applicationsModel, BuildContext context) async {
+    try {
+      final name = applicationsModel.name!.replaceAll(RegExp(r' '), "-").toLowerCase();
+      final data = await shell.run("apt list $name");
+
+      for(var element in data.outLines) {
+        if(element.contains(name)) {
+          return true;
+        }
+      }
+
+      return false;
+    } catch (e) {
+      throw CustomExceptionsWidget(e.toString(), context);
+    }
+  }  
 }

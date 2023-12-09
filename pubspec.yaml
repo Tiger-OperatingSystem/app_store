@@ -40,6 +40,7 @@ dependencies:
   http: ^1.1.0
   process_run: ^0.13.2
   xml: ^6.4.2
+  url_launcher: ^6.2.2
 
 dev_dependencies:
   flutter_test:

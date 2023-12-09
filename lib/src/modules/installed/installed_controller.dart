@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:app_store/main.dart';
+import 'package:app_store/src/handlers/exceptions.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
@@ -11,15 +14,15 @@ class InstalledController extends ChangeNotifier {
   final _basePathImage =
       "current/active/files/share/app-info/icons/flatpak/64x64";
 
-  Future<List<ApplicationsModel>> flatpakInstalled() async {
+  Future<List<ApplicationsModel>> flatpakInstalled(BuildContext context) async {
     try {
       List<ApplicationsModel> list = [];
-      final appsData = await _getApplicationsFlatpak();
+      final appsData = await _getApplicationsFlatpak(context);
 
       for (int i = 0; i < appsData.length; i++) {
         final flatpakId = appsData;
-        final name = await _getAppDataXml('name');
-        final summary = await _getAppDataXml('summary');
+        final name = await _getAppDataXml('name', context);
+        final summary = await _getAppDataXml('summary', context);
         final iconDesktopUrl =
             "$_basePath/${appsData[i]}/$_basePathImage/${appsData[i]}.png";
 
@@ -34,11 +37,11 @@ class InstalledController extends ChangeNotifier {
       }
       return list;
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 
-  Future<List<String>> _getApplicationsFlatpak() async {
+  Future<List<String>> _getApplicationsFlatpak(BuildContext context) async {
     try {
       List<String> list = [];
       final path = _basePath;
@@ -50,14 +53,14 @@ class InstalledController extends ChangeNotifier {
 
       return list;
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 
-  Future<List> _getAppDataXml(String tag) async {
+  Future<List> _getAppDataXml(String tag, BuildContext context) async {
     try {
       List<String> list = [];
-      final flatpak = await _getApplicationsFlatpak();
+      final flatpak = await _getApplicationsFlatpak(context);
 
       for (var elements in flatpak) {
         final file = File(
@@ -74,7 +77,7 @@ class InstalledController extends ChangeNotifier {
 
       return list;
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 }

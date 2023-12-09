@@ -16,7 +16,7 @@ class InstalledView extends StatelessWidget {
       listenable: context.watch<ApplicationsController>(),
       builder: (context, child) {
         return FutureBuilder(
-          future: installedController.flatpakInstalled(),
+          future: installedController.flatpakInstalled(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -42,7 +42,7 @@ class InstalledView extends StatelessWidget {
                         onPressed: () {
                           context
                               .read<ApplicationsController>()
-                              .removeFlatpak(applicationModel);
+                              .removeFlatpak(applicationModel, context);
                         },
                         child: const Text("Remover")),
                   ),

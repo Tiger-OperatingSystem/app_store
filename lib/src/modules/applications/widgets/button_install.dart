@@ -64,7 +64,7 @@ class ButtonInstallWidget extends StatelessWidget {
                                 : const Icon(Icons.delete),
                             onPressed: () => _installOrRemoveFlatpak(
                               applicationModel,
-                              hasInstalledFlatpak,
+                              hasInstalledDebian,
                               applicationsController,
                               context,
                             ),

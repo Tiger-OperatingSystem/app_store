@@ -17,8 +17,9 @@ class CustomExceptionsWidget implements Exception {
         content: Text(message),
         actions: [
           ElevatedButton(onPressed: () async {
-            launchUrl(Uri.parse(uriReport));
-          }, child: const Text("Reportar este problema")),
+            await launchUrl(Uri.parse(uriReport));
+          }, 
+          child: const Text("Reportar este problema")),
         ],
       );
     });

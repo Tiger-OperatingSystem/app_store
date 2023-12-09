@@ -18,7 +18,7 @@ class ApplicationsDetailsView extends StatelessWidget {
       // Build app details
       body: FutureBuilder(
         future: ApplicationsController.getByFlatpakAppId(
-            applicationsModel.flatpakAppId!),
+            applicationsModel.flatpakAppId!, context),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(

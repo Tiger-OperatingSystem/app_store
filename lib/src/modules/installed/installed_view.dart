@@ -42,7 +42,7 @@ class InstalledView extends StatelessWidget {
                         onPressed: () {
                           context
                               .read<ApplicationsController>()
-                              .removeFlatpak(applicationModel);
+                              .removeFlatpak(applicationModel, context);
                         },
                         child: const Text("Remover")),
                   ),

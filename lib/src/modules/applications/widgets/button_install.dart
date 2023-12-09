@@ -15,7 +15,7 @@ class ButtonInstallWidget extends StatelessWidget {
               builder: (context, child) {
                 return FutureBuilder(
                   future: Future.wait([applicationsController
-                      .hasInstalledFlatpak(applicationModel), 
+                      .hasInstalledFlatpak(applicationModel, context), 
                       applicationsController
                       .hasInstalledDebian(applicationModel, context),
                       applicationsController
@@ -30,36 +30,47 @@ class ButtonInstallWidget extends StatelessWidget {
                     final isDebianPackage = snapshot.data![2];
 
                     return Row(
+                      mainAxisSize: MainAxisSize.max,
                       children: [
-                        
+
                         Visibility(
                           visible: isDebianPackage ? true : false,
-                          child: ElevatedButton.icon(
-                            icon: !hasInstalledDebian
-                                ? const Icon(Icons.download)
-                                : const Icon(Icons.delete),
-                            onPressed: () => _installOrRemove(
-                              applicationModel,
-                              hasInstalledFlatpak,
-                              applicationsController,
-                            ),
-                            label: Text("Nativo",
-                              style: Theme.of(context).textTheme.titleMedium,
+                          child: SizedBox(
+                            height: 80,
+                            child: ElevatedButton.icon(
+                              icon: !hasInstalledDebian
+                                  ? const Icon(Icons.download)
+                                  : const Icon(Icons.delete),
+                              onPressed: () => _installOrRemoveDebianPackage(
+                                applicationModel,
+                                hasInstalledFlatpak,
+                                applicationsController,
+                                context,
+                              ),
+                              label: Text(!hasInstalledDebian ? "Installar nativo" : "Desinstalar nativo",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
                             ),
                           ),
                         ),
 
-                        ElevatedButton.icon(
-                          icon: !hasInstalledFlatpak
-                              ? const Icon(Icons.download)
-                              : const Icon(Icons.delete),
-                          onPressed: () => _installOrRemove(
-                            applicationModel,
-                            hasInstalledFlatpak,
-                            applicationsController,
-                          ),
-                          label: Text("Flatpak",
-                            style: Theme.of(context).textTheme.titleMedium,
+                        const SizedBox(width: 15),
+
+                        SizedBox(
+                          height: 80,
+                          child: ElevatedButton.icon(
+                            icon: !hasInstalledFlatpak
+                                ? const Icon(Icons.download)
+                                : const Icon(Icons.delete),
+                            onPressed: () => _installOrRemoveFlatpak(
+                              applicationModel,
+                              hasInstalledFlatpak,
+                              applicationsController,
+                              context,
+                            ),
+                            label: Text(!hasInstalledFlatpak ? "Installar flatpak" : "Desinstalar flatpak",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
                           ),
                         ),
                       ]
@@ -71,13 +82,26 @@ class ButtonInstallWidget extends StatelessWidget {
   }
 }
 
-void _installOrRemove(ApplicationsModel applicationsModel, bool hasInstalled,
-    ApplicationsController applicationsController) {
+void _installOrRemoveFlatpak(ApplicationsModel applicationsModel, bool hasInstalled,
+    ApplicationsController applicationsController, BuildContext context) {
   try {
     if (!hasInstalled) {
-      applicationsController.installFlatpak(applicationsModel);
+      applicationsController.installFlatpak(applicationsModel, context);
     } else {
-      applicationsController.removeFlatpak(applicationsModel);
+      applicationsController.removeFlatpak(applicationsModel, context);
+    }
+  } catch (e) {
+    rethrow;
+  }
+}
+
+void _installOrRemoveDebianPackage(ApplicationsModel applicationsModel, bool hasInstalled,
+    ApplicationsController applicationsController, BuildContext context) {
+  try {
+    if (!hasInstalled) {
+      applicationsController.installDebianPackage(applicationsModel, context);
+    } else {
+      applicationsController.removeDebianPackage(applicationsModel, context);
     }
   } catch (e) {
     rethrow;

@@ -38,9 +38,9 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
 
           // Space
           const Expanded(child: SizedBox.shrink()),
-
-          ButtonInstallWidget(applicationModel: applicationModel),
-          
+          SizedBox(
+            child: ButtonInstallWidget(applicationModel: applicationModel),
+          ),
           // Space
           const Expanded(child: SizedBox.shrink()),
         ],

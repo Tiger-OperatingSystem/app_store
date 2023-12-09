@@ -37,7 +37,7 @@ class InstalledController extends ChangeNotifier {
       }
       return list;
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 
@@ -53,7 +53,7 @@ class InstalledController extends ChangeNotifier {
 
       return list;
     } catch (e) {
-      throw CustomExceptionsWidget("Não foi possível localizar caminho /var/lib/flatpak/app.", context);
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 
@@ -77,7 +77,7 @@ class InstalledController extends ChangeNotifier {
 
       return list;
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 }

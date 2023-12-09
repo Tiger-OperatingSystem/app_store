@@ -18,21 +18,21 @@ class ApplicationsController extends ChangeNotifier {
           BuildApplicationsWidget(endpoint: "search/$search"), context);
       notifyListeners();
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 
   static Future<ApplicationsModel> getByFlatpakAppId(
-      String flatpakAppId) async {
+      String flatpakAppId, BuildContext context) async {
     try {
       final data = await Http.get(flatpakAppId);
       return ApplicationsModel.fromJson(data);
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 
-  Future<bool> hasInstalledFlatpak(ApplicationsModel applicationsModel) async {
+  Future<bool> hasInstalledFlatpak(ApplicationsModel applicationsModel, BuildContext context) async {
     try {
       late bool hasInstalled;
       final result = await shell.run('''ls /var/lib/flatpak/app/''');
@@ -45,11 +45,11 @@ class ApplicationsController extends ChangeNotifier {
 
       return hasInstalled;
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 
-  Future<void> installFlatpak(ApplicationsModel applicationsModel) async {
+  Future<void> installFlatpak(ApplicationsModel applicationsModel, BuildContext context) async {
     try {
       final result = await shell.run(
         '''flatpak-install-gui --override-appname="${applicationsModel.name}" ${applicationsModel.flatpakAppId}''',
@@ -57,11 +57,11 @@ class ApplicationsController extends ChangeNotifier {
       result;
       notifyListeners();
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 
-  Future<void> removeFlatpak(ApplicationsModel applicationsModel) async {
+  Future<void> removeFlatpak(ApplicationsModel applicationsModel, BuildContext context) async {
     try {
       final result = await shell.run(
         '''flatpak-install-gui --override-appname="${applicationsModel.name}" --remove ${applicationsModel.flatpakAppId}''',
@@ -69,7 +69,7 @@ class ApplicationsController extends ChangeNotifier {
       result;
       notifyListeners();
     } catch (e) {
-      rethrow;
+      throw CustomExceptionsWidget(e.toString(), context);
     }
   }
 
@@ -103,6 +103,28 @@ class ApplicationsController extends ChangeNotifier {
       }
 
       return false;
+    } catch (e) {
+      throw CustomExceptionsWidget(e.toString(), context);
+    }
+  }
+
+  Future<void> installDebianPackage(ApplicationsModel applicationsModel, BuildContext context) async {
+    try {
+      final name = applicationsModel.name!.replaceAll(RegExp(r' '), "-").toLowerCase();
+      final result = await shell.run("pkexec apt-get install $name -y");
+      result;
+      notifyListeners();
+    } catch (e) {
+      throw CustomExceptionsWidget(e.toString(), context);
+    }
+  }
+
+  Future<void> removeDebianPackage(ApplicationsModel applicationsModel, BuildContext context) async {
+    try {
+      final name = applicationsModel.name!.replaceAll(RegExp(r' '), "-").toLowerCase();
+      final result = await shell.run("pkexec apt-get remove $name -y");
+      result;
+      notifyListeners();
     } catch (e) {
       throw CustomExceptionsWidget(e.toString(), context);
     }

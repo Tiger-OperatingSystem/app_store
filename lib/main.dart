@@ -18,7 +18,7 @@ Future<void> main() async {
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.setTitle('Central de Aplicações');
+    await windowManager.setTitle('Central de Programas');
     await windowManager.show();
     await windowManager.focus();
   });

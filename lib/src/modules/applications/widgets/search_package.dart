@@ -26,7 +26,7 @@ class SearchPackageWidget extends StatelessWidget {
                   _controller.clear();
                 },
                 icon: const Icon(Icons.clear)),
-            labelText: "Pesquisar por aplicação, pressione enter.",
+            labelText: "Digite o nome do programa e pressione enter",
             iconData: Icons.search,
           ),
         )

@@ -43,7 +43,7 @@ class ButtonInstallWidget extends StatelessWidget {
                                   : const Icon(Icons.delete),
                               onPressed: () => _installOrRemoveDebianPackage(
                                 applicationModel,
-                                hasInstalledFlatpak,
+                                hasInstalledDebian,
                                 applicationsController,
                                 context,
                               ),
@@ -64,7 +64,7 @@ class ButtonInstallWidget extends StatelessWidget {
                                 : const Icon(Icons.delete),
                             onPressed: () => _installOrRemoveFlatpak(
                               applicationModel,
-                              hasInstalledDebian,
+                              hasInstalledFlatpak,
                               applicationsController,
                               context,
                             ),

@@ -17,7 +17,7 @@ ThemeData _lightTheme = ThemeData(
 
 ThemeData _darkTheme = ThemeData(
   useMaterial3: true,
-  colorScheme: darkColorScheme,
+  colorScheme: darkColorScheme2,
   appBarTheme: const AppBarTheme(
     elevation: 0,
   )

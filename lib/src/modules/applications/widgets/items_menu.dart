@@ -18,12 +18,9 @@ class ItemMenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final navigation = context.read<Navigation>();
     return ListTile(
-      leading: CircleAvatar(
-        maxRadius: 16,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        child: Icon(icon, size: 18),
-      ),
+      leading: Icon(
+        icon, size: 18, 
+        color: Theme.of(context).colorScheme.primary,),
       title: Text(title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
       onTap: () => navigation.pageView(

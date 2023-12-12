@@ -10,11 +10,11 @@ class ButtonInstallWidget extends StatefulWidget {
   State<ButtonInstallWidget> createState() => _ButtonInstallWidgetState();
 }
 
-late List<String> _list;
+List<String> _list = [""];
 
 class _ButtonInstallWidgetState extends State<ButtonInstallWidget> {
   final applicationsController = ApplicationsController();
-  String dropdownValue = _list.first;
+  late String dropdownValue = _list.first;
   late Future<List> waits;
 
   @override

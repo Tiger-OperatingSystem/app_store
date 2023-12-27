@@ -10,8 +10,8 @@ import 'package:process_run/shell.dart';
 import 'package:xml/xml.dart';
 
 class InstalledController extends ChangeNotifier {
-  final _basePath = "/var/lib/flatpak/app";
-  final _basePathImage =
+  final _basePathFlatpak = "/var/lib/flatpak/app";
+  final _basePathFlatpakImage =
       "current/active/files/share/app-info/icons/flatpak/64x64";
 
   Future<List<ApplicationsModel>> flatpakInstalled(BuildContext context) async {
@@ -24,7 +24,7 @@ class InstalledController extends ChangeNotifier {
         final name = await _getAppDataXml('name', context);
         final summary = await _getAppDataXml('summary', context);
         final iconDesktopUrl =
-            "$_basePath/${appsData[i]}/$_basePathImage/${appsData[i]}.png";
+            "$_basePathFlatpak/${appsData[i]}/$_basePathFlatpakImage/${appsData[i]}.png";
 
         final applicationModel = ApplicationsModel(
           flatpakAppId: flatpakId[i],
@@ -44,7 +44,7 @@ class InstalledController extends ChangeNotifier {
   Future<List<String>> _getApplicationsFlatpak(BuildContext context) async {
     try {
       List<String> list = [];
-      final path = _basePath;
+      final path = _basePathFlatpak;
       final data = await shell.run("ls $path");
 
       for (var elements in data.outLines) {
@@ -64,7 +64,7 @@ class InstalledController extends ChangeNotifier {
 
       for (var elements in flatpak) {
         final file = File(
-            "$_basePath/$elements/current/active/files/share/appdata/$elements.appdata.xml");
+            "$_basePathFlatpak/$elements/current/active/files/share/appdata/$elements.appdata.xml");
         final document = XmlDocument.parse(file.readAsStringSync());
 
         final data = document
@@ -76,6 +76,16 @@ class InstalledController extends ChangeNotifier {
       }
 
       return list;
+    } catch (e) {
+      throw CustomExceptionsWidget(e.toString(), context);
+    }
+  }
+
+  Set<dynamic> segmentSelected = {0};
+  void changeSegmentSelected(Set<dynamic> value, BuildContext context) {
+    try {
+      segmentSelected = value;
+      notifyListeners();
     } catch (e) {
       throw CustomExceptionsWidget(e.toString(), context);
     }

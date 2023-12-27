@@ -15,7 +15,7 @@ class HeaderWidget extends StatelessWidget implements PreferredSizeWidget {
 
       leading: const LogoWidget(),
       title: Text(
-        "Central de Programas",
+        "Tiger Store",
         style: Theme.of(context).textTheme.titleSmall,
       ),
       bottom: const MenuTab(),

@@ -1,5 +1,6 @@
 import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/applications_controller.dart';
+import 'package:app_store/src/modules/installed/installed_controller.dart';
 import 'package:process_run/shell.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
@@ -28,6 +29,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => Navigation()),
         ChangeNotifierProvider(create: (context) => ApplicationsController()),
+        ChangeNotifierProvider(create: (context) => InstalledController()),
       ],
       child: const AppWidget(),
     ),

@@ -19,8 +19,7 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
           // Space
           const Expanded(child: SizedBox.shrink()),
           Image.network(
-            applicationModel.iconDesktopUrl!,
-          ),
+            applicationModel.iconDesktopUrl!,height: 64.0,width: 64.0),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +29,7 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.displayLarge,
               ),
               Text(
-                "por ${applicationModel.developerName ?? "Nenhum"}",
+                "por ${applicationModel.developerName ?? "Desconhecido"}",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ],

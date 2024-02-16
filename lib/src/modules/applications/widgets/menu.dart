@@ -18,9 +18,14 @@ class MenuWidget extends StatelessWidget {
         icon: Icons.celebration,
       ),
       const ItemMenuWidget(
-        title: "Recem atualizados",
+        title: "Receberam novidades",
         endpoint: "collection/recently-updated",
         icon: Icons.history,
+      ),
+      const ItemMenuWidget(
+        title: "Aplicações Web",
+        endpoint: "Tiger-OperatingSystem/TigerStore-Addons/main/webapps.json",
+        icon: Icons.language,
       ),
       const ItemMenuWidget(
         title: "Produtividade",

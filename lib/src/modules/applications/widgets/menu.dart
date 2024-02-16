@@ -23,6 +23,11 @@ class MenuWidget extends StatelessWidget {
         icon: Icons.history,
       ),
       const ItemMenuWidget(
+        title: "Aplicações Web",
+        endpoint: "Tiger-OperatingSystem/TigerStore-Addons/main/webapps.json",
+        icon: Icons.language,
+      ),
+      const ItemMenuWidget(
         title: "Produtividade",
         endpoint: "category/Office",
         icon: Icons.work,

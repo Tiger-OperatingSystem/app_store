@@ -51,7 +51,7 @@ class ApplicationsDetailsView extends StatelessWidget {
                   ),
                   child: Text(
                     applicationModel.description!
-                        .replaceAll(RegExp(r'[<p></p>]'), ""),
+                        .replaceAll(RegExp(r'<[^>]*>'), ""),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 )

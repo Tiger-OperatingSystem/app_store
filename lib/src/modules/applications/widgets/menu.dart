@@ -18,7 +18,7 @@ class MenuWidget extends StatelessWidget {
         icon: Icons.celebration,
       ),
       const ItemMenuWidget(
-        title: "Recem atualizados",
+        title: "Receberam novidades",
         endpoint: "collection/recently-updated",
         icon: Icons.history,
       ),

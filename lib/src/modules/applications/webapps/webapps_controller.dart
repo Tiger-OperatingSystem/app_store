@@ -14,8 +14,8 @@ class WebAppController extends ApplicationsController {
 
   @override
   Future<bool> hasInstalled(
-      ApplicationsModel applicationsModel, BuildContext context) {
-    throw UnimplementedError();
+      ApplicationsModel applicationsModel, BuildContext context) async {
+    return false;
   }
 
   @override

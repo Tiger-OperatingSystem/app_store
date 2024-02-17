@@ -1,5 +1,6 @@
 import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
+import 'package:app_store/src/modules/applications/widgets/button_install.dart';
 import 'package:flutter/material.dart';
 
 class DropdownAvailableWidget extends StatefulWidget {
@@ -77,6 +78,12 @@ class _DropdownAvailableWidgetState extends State<DropdownAvailableWidget> {
               dropdownMenuEntries: _list.map((value) {
                 return DropdownMenuEntry(value: value, label: value);
               }).toList(),
+            ),
+            ButtonInstallWidget(
+              availables: _list,
+              applicationsController: widget.applicationsController,
+              applicationsModel: widget.applicationModel,
+              selected: dropdownValue,
             ),
           ],
         );

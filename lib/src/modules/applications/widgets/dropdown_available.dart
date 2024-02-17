@@ -55,6 +55,7 @@ class _DropdownAvailableWidgetState extends State<DropdownAvailableWidget> {
         }
 
         if (isAvailableWebapp) {
+          _list = [];
           _list.add("WebApp");
         }
 

@@ -17,8 +17,7 @@ class _ScrenshootApplicationDetailWidgetState
   Widget build(BuildContext context) {
     return SizedBox(
       height: 480,
-      child: ListView.builder(
-        padding: const EdgeInsets.all(12),
+      child: PageView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: widget.applicationModel.screenshots!.length,
         itemBuilder: (context, index) {

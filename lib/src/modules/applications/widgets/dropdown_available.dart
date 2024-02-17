@@ -43,6 +43,7 @@ class _DropdownAvailableWidgetState extends State<DropdownAvailableWidget> {
 
         bool isAvailableFlatpak = snapshot.data![0];
         bool isAvailableDebian = snapshot.data![1];
+        bool isAvailableWebapp = snapshot.data![2];
 
         if (isAvailableFlatpak) {
           _list.add("Flatpak");
@@ -50,6 +51,10 @@ class _DropdownAvailableWidgetState extends State<DropdownAvailableWidget> {
 
         if (isAvailableDebian) {
           _list.add("Debian");
+        }
+
+        if (isAvailableWebapp) {
+          _list.add("WebApp");
         }
 
         return Row(

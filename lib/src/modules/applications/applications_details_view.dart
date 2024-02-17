@@ -1,10 +1,8 @@
-import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/flatpak/flatpak_controller.dart';
 import 'package:app_store/src/modules/applications/widgets/header_detail.dart';
 import 'package:app_store/src/modules/applications/widgets/screenshots_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ApplicationsDetailsView extends StatelessWidget {
   final ApplicationsModel applicationsModel;

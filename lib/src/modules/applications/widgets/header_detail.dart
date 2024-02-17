@@ -2,6 +2,7 @@ import 'package:app_store/src/modules/applications/applications_controller.dart'
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/deb/debian_controller.dart';
 import 'package:app_store/src/modules/applications/flatpak/flatpak_controller.dart';
+import 'package:app_store/src/modules/applications/webapps/webapps_controller.dart';
 import 'package:app_store/src/modules/applications/widgets/dropdown_available.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
   final List<ApplicationsController> _controllers = [
     FlatpakController(),
     DebianController(),
+    WebAppController(),
   ];
 
   @override

@@ -1,8 +1,10 @@
 import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
+import 'package:app_store/src/modules/applications/flatpak/flatpak_controller.dart';
 import 'package:app_store/src/modules/applications/widgets/header_detail.dart';
 import 'package:app_store/src/modules/applications/widgets/screenshots_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ApplicationsDetailsView extends StatelessWidget {
   final ApplicationsModel applicationsModel;
@@ -10,6 +12,7 @@ class ApplicationsDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final flatkpakController = FlatpakController();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Voltar"),
@@ -17,7 +20,7 @@ class ApplicationsDetailsView extends StatelessWidget {
 
       // Build app details
       body: FutureBuilder(
-        future: ApplicationsController.getByFlatpakAppId(
+        future: flatkpakController.getById(
             applicationsModel.flatpakAppId!, context),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {

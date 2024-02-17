@@ -14,7 +14,7 @@ class ApplicationsMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final applicationsController = context.read<ApplicationsController>();
+    final applicationsController = Provider.of<ApplicationsController>(context);
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,

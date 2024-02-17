@@ -1,5 +1,7 @@
 import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/applications_controller.dart';
+import 'package:app_store/src/modules/applications/deb/debian_controller.dart';
+import 'package:app_store/src/modules/applications/flatpak/flatpak_controller.dart';
 import 'package:process_run/shell.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
@@ -7,6 +9,7 @@ import 'package:app_store/app_widget.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
+  Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
 
   await windowManager.ensureInitialized();
@@ -27,7 +30,8 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Navigation()),
-        ChangeNotifierProvider(create: (context) => ApplicationsController()),
+        Provider<ApplicationsController>.value(value: FlatpakController()),
+        Provider<ApplicationsController>.value(value: DebianController())
       ],
       child: const AppWidget(),
     ),

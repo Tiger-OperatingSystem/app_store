@@ -1,20 +1,24 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:app_store/src/core/navigation.dart';
-import 'package:app_store/src/modules/applications/applications_controller.dart';
+import 'package:app_store/src/modules/applications/flatpak/flatpak_controller.dart';
 import 'package:app_store/src/modules/applications/widgets/menu.dart';
 import 'package:app_store/src/modules/applications/widgets/search_package.dart';
+import 'package:app_store/src/store/navigation_store.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class ApplicationsMainView extends StatelessWidget {
+class ApplicationsMainView extends StatefulWidget {
   const ApplicationsMainView({
     super.key,
   });
 
   @override
+  State<ApplicationsMainView> createState() => _ApplicationsMainViewState();
+}
+
+class _ApplicationsMainViewState extends State<ApplicationsMainView> {
+  @override
   Widget build(BuildContext context) {
-    final applicationsController = Provider.of<ApplicationsController>(context);
+    final flatpakController = FlatpakController();
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -35,19 +39,19 @@ class ApplicationsMainView extends StatelessWidget {
               padding:
                   const EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
               child: ListenableBuilder(
-                listenable: context.watch<Navigation>(),
+                listenable: currentView,
                 builder: (context, child) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SearchPackageWidget(
                         onPressed: (value) {
-                          applicationsController.search(value, context);
+                          flatpakController.search(value, context);
                         },
                       ),
 
                       // View
-                      context.watch<Navigation>().currentView,
+                      currentView.value,
                     ],
                   );
                 },

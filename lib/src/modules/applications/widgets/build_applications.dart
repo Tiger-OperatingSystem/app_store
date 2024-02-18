@@ -1,11 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:app_store/src/core/http.dart';
-import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/widgets/card_applications.dart';
+import 'package:app_store/src/store/navigation_store.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BuildApplicationsWidget extends StatelessWidget {
   String endpoint;
@@ -19,7 +18,7 @@ class BuildApplicationsWidget extends StatelessWidget {
     List itemsWithIcon = [];
 
     return ListenableBuilder(
-      listenable: context.watch<Navigation>(),
+      listenable: currentView,
       builder: (context, child) {
         return FutureBuilder(
           future: _getItemsWithIcon(endpoint, itemsWithIcon),

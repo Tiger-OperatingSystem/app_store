@@ -3,155 +3,87 @@ import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:flutter/material.dart';
 
 class ButtonInstallWidget extends StatefulWidget {
-  final ApplicationsModel applicationModel;
-  const ButtonInstallWidget({super.key, required this.applicationModel});
+  final List<String> availables;
+  final List<ApplicationsController> applicationsController;
+  final ApplicationsModel applicationsModel;
+  final String selected;
+  const ButtonInstallWidget({
+    super.key,
+    required this.availables,
+    required this.applicationsController,
+    required this.applicationsModel,
+    required this.selected,
+  });
 
   @override
   State<ButtonInstallWidget> createState() => _ButtonInstallWidgetState();
 }
 
-List<String> _list = [""];
+late Future<List<bool>> hasInstalled;
 
 class _ButtonInstallWidgetState extends State<ButtonInstallWidget> {
-  final applicationsController = ApplicationsController();
-  late String dropdownValue = _list.first;
-  late Future<List> waits;
-
   @override
   void initState() {
-    waits = Future.wait([applicationsController
-                      .hasInstalledFlatpak(widget.applicationModel, context), 
-                      applicationsController
-                      .hasInstalledDebian(widget.applicationModel, context),
-                      applicationsController
-                      .isDebianPackage(widget.applicationModel, context)]);
+    hasInstalled = Future.wait(List.generate(
+        widget.applicationsController.length,
+        (index) => widget.applicationsController[index]
+            .hasInstalled(widget.applicationsModel, context)));
     super.initState();
   }
-     
+
   @override
   Widget build(BuildContext context) {
-      return FutureBuilder(
-        future: waits,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return FutureBuilder(
+      future: hasInstalled,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-          bool hasInstalledFlatpak = snapshot.data![0];
-          bool hasInstalledDebian = snapshot.data![1];
-          bool isDebianPackage = snapshot.data![2];
+        print(snapshot.data);
 
-          _list  = [];
+        List<bool> installeds = List.generate(
+            snapshot.data!.length, (index) => snapshot.data![index]);
 
-          if(!isDebianPackage) {
-            _list.add("Flatpak");
-          } else {
-            _list.addAll(["Nativo", "Flatpak"]);
-          }
-
-          return Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              DropdownMenu(
-                inputDecorationTheme: InputDecorationTheme(
-                  border: const OutlineInputBorder(
+        return SizedBox(
+          height: 60,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12)
-                    )
-                  ),
-                  fillColor: Theme.of(context).colorScheme.onSecondary,
-                  filled: true
-                ),
-                initialSelection: _list.first,
-                onSelected: (value) {
-                  setState(() {
-                    dropdownValue = value!;
-                  });
-                },
-                dropdownMenuEntries: _list.map((value) {
-                  return DropdownMenuEntry(
-                    value: value, 
-                    label: value);
-                }).toList(),
-              ),
-
-              SizedBox(
-                height: 60,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
                         topRight: Radius.circular(12),
-                        bottomRight: Radius.circular(12)
-                        )
-                    )
-                  ),
-                  onPressed: (){
-                    if(dropdownValue != "Nativo") {
-                      return _installOrRemoveFlatpak(
-                        widget.applicationModel, 
-                        hasInstalledFlatpak, 
-                        applicationsController, context);
-                    }
-
-                    return _installOrRemoveDebianPackage(
-                      widget.applicationModel, 
-                      hasInstalledDebian, 
-                      applicationsController, context);
-                  }, 
-                  child: Text(_installOrUninstall([hasInstalledDebian, hasInstalledFlatpak], dropdownValue)))),
-            ],
-          );
-        },
-      );           
+                        bottomRight: Radius.circular(12)))),
+            onPressed: () {},
+            child: Text(_chooseTextButton(installeds, widget.selected)),
+          ),
+        );
+      },
+    );
   }
 }
 
-String _installOrUninstall(List<bool> hasInstalled, String selected) {
-  String installOrUninstall = "Instalar";
-  if(selected == "Nativo") {
-    if(hasInstalled[0]) {
-      installOrUninstall = "Desinstalar";
-    }
-
-    return installOrUninstall;
+String _chooseTextButton(List<bool> hasInstalled, String selected) {
+  late String value;
+  switch (selected) {
+    case "Flatpak":
+      if (hasInstalled[0] != true) {
+        value = "Instalar";
+      } else {
+        value = "Desinstalar";
+      }
+    case "Debian":
+      if (hasInstalled[1] != true) {
+        value = "Instalar";
+      } else {
+        value = "Desinstalar";
+      }
+    case "WebApp":
+      if (hasInstalled[2] != true) {
+        value = "Instalar";
+      } else {
+        value = "Desinstalar";
+      }
   }
 
-  if(selected == "Flatpak") {
-    if(hasInstalled[1]) {
-      installOrUninstall = "Desinstalar";
-    }
-
-    return installOrUninstall;
-  }
-
-  return installOrUninstall;
-
-}
-
-void _installOrRemoveFlatpak(ApplicationsModel applicationsModel, bool hasInstalled,
-    ApplicationsController applicationsController, BuildContext context) {
-  try {
-    if (!hasInstalled) {
-      applicationsController.installFlatpak(applicationsModel, context);
-    } else {
-      applicationsController.removeFlatpak(applicationsModel, context);
-    }
-  } catch (e) {
-    rethrow;
-  }
-}
-
-void _installOrRemoveDebianPackage(ApplicationsModel applicationsModel, bool hasInstalled,
-    ApplicationsController applicationsController, BuildContext context) {
-  try {
-    if (!hasInstalled) {
-      applicationsController.installDebianPackage(applicationsModel, context);
-    } else {
-      applicationsController.removeDebianPackage(applicationsModel, context);
-    }
-  } catch (e) {
-    rethrow;
-  }
+  return value;
 }

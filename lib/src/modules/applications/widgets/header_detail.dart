@@ -1,13 +1,23 @@
+import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
-import 'package:app_store/src/modules/applications/widgets/button_install.dart';
+import 'package:app_store/src/modules/applications/deb/debian_controller.dart';
+import 'package:app_store/src/modules/applications/flatpak/flatpak_controller.dart';
+import 'package:app_store/src/modules/applications/webapps/webapps_controller.dart';
+import 'package:app_store/src/modules/applications/widgets/dropdown_available.dart';
 import 'package:flutter/material.dart';
 
 class HeaderApplicationDetailWidget extends StatelessWidget {
   final ApplicationsModel applicationModel;
-  const HeaderApplicationDetailWidget({
+  HeaderApplicationDetailWidget({
     super.key,
     required this.applicationModel,
   });
+
+  final List<ApplicationsController> _controllers = [
+    FlatpakController(),
+    DebianController(),
+    WebAppController(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +29,10 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
           // Space
           const Expanded(child: SizedBox.shrink()),
           Image.network(
-            applicationModel.iconDesktopUrl!,height: 64.0,width: 64.0),
+            applicationModel.iconDesktopUrl!,
+            height: 64.0,
+            width: 64.0,
+          ),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +51,10 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
           // Space
           const Expanded(child: SizedBox.shrink()),
           SizedBox(
-            child: ButtonInstallWidget(applicationModel: applicationModel),
+            child: DropdownAvailableWidget(
+              applicationModel: applicationModel,
+              applicationsController: _controllers,
+            ),
           ),
           // Space
           const Expanded(child: SizedBox.shrink()),

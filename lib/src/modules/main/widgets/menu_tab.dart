@@ -13,7 +13,7 @@ class MenuTab extends StatelessWidget implements PreferredSizeWidget {
 }
 
 Map<int, Widget> _menu = {
-  0: const Tab(icon: Icon(Icons.explore), text: "Descubra"),
-  1: const Tab(icon: Icon(Icons.shopping_bag), text: "Programas"),
-  2: const Tab(icon: Icon(Icons.cloud_download_rounded), text: "Instalados"),
+  //0: const Tab(icon: Icon(Icons.explore), text: "Descubra"),
+  0: const Tab(icon: Icon(Icons.shopping_bag), text: "Programas"),
+  1: const Tab(icon: Icon(Icons.cloud_download_rounded), text: "Instalados"),
 };

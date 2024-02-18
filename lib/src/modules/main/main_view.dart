@@ -1,5 +1,4 @@
 import 'package:app_store/src/modules/applications/applications_view.dart';
-import 'package:app_store/src/modules/discovery/discovery_view.dart';
 import 'package:app_store/src/modules/installed/installed_view.dart';
 import 'package:app_store/src/widgets/header.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class _MainViewState extends State<MainView> with WindowListener {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: HeaderWidget(
           windowManager: windowManager,
@@ -41,7 +40,7 @@ class _MainViewState extends State<MainView> with WindowListener {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: const TabBarView(children: [
-            DiscoveryView(),
+            //DiscoveryView(),
             ApplicationsMainView(),
             InstalledView(),
           ]),

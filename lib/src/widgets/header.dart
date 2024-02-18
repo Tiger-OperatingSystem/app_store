@@ -12,10 +12,9 @@ class HeaderWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-
       leading: const LogoWidget(),
       title: Text(
-        "Central de Programas",
+        "Tiger Store",
         style: Theme.of(context).textTheme.titleSmall,
       ),
       bottom: const MenuTab(),

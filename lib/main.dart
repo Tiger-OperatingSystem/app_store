@@ -16,7 +16,7 @@ Future<void> main() async {
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.setTitle('Central de Programas');
+    await windowManager.setTitle('Tiger Store');
     await windowManager.show();
     await windowManager.focus();
   });

@@ -28,7 +28,7 @@ class _MainViewState extends State<MainView> with WindowListener {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: HeaderWidget(
           windowManager: windowManager,

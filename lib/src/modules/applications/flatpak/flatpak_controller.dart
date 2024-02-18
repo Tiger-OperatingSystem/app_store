@@ -4,17 +4,17 @@ import 'package:app_store/main.dart';
 import 'package:app_store/src/core/http.dart';
 import 'package:app_store/src/core/navigation.dart';
 import 'package:app_store/src/handlers/exceptions.dart';
+import 'package:app_store/src/injector.dart';
 import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
 import 'package:app_store/src/modules/applications/widgets/build_applications.dart';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
-import 'package:provider/provider.dart';
 
 class FlatpakController extends ApplicationsController {
   @override
   Future<void> search(String search, BuildContext context) async {
-    final navigation = context.read<Navigation>();
+    final navigation = getIt<Navigation>();
     try {
       navigation.pageView(
           BuildApplicationsWidget(endpoint: "search/$search"), context);

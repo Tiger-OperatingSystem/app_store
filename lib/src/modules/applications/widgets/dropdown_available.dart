@@ -24,11 +24,10 @@ class _DropdownAvailableWidgetState extends State<DropdownAvailableWidget> {
 
   @override
   void initState() {
-    waits = Future.wait(
-        List.generate(widget.applicationsController.length, (index) {
-      return widget.applicationsController[index]
-          .isAvailable(widget.applicationModel, context);
-    }));
+    waits = Future.wait(List.generate(
+        widget.applicationsController.length,
+        (index) => widget.applicationsController[index]
+            .isAvailable(widget.applicationModel, context)));
     super.initState();
   }
 
@@ -38,7 +37,7 @@ class _DropdownAvailableWidgetState extends State<DropdownAvailableWidget> {
     return FutureBuilder(
       future: waits,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }
 

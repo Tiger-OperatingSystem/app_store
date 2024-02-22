@@ -27,7 +27,7 @@ class ApplicationsDetailsView extends StatelessWidget {
             );
           }
 
-          final applicationModel = snapshot.data;
+          final applicationModel = snapshot.data!;
 
           return SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -35,7 +35,7 @@ class ApplicationsDetailsView extends StatelessWidget {
             child: ListView(
               children: [
                 HeaderApplicationDetailWidget(
-                    applicationModel: applicationModel!),
+                    applicationModel: applicationModel),
                 ScrenshootApplicationDetailWidget(
                     applicationModel: applicationModel),
                 Padding(

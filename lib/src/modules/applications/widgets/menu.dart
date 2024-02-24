@@ -9,12 +9,12 @@ class MenuWidget extends StatelessWidget {
     List<Widget> menu = [
       const ItemMenuWidget(
         title: "Populares",
-        endpoint: "Tiger-OperatingSystem/TigerStore-Addons/main/popular.json",
+        endpoint: "main/popular.json",
         icon: Icons.auto_graph,
       ),
       const ItemMenuWidget(
         title: "Recem adicionados",
-        endpoint: "collection/new",
+        endpoint: "main/new.json",
         icon: Icons.celebration,
       ),
       const ItemMenuWidget(
@@ -24,7 +24,7 @@ class MenuWidget extends StatelessWidget {
       ),
       const ItemMenuWidget(
         title: "Aplicações Web",
-        endpoint: "Tiger-OperatingSystem/TigerStore-Addons/main/webapps.json",
+        endpoint: "main/webapps.json",
         icon: Icons.language,
       ),
       const ItemMenuWidget(

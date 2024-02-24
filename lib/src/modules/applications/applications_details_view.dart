@@ -3,6 +3,7 @@ import 'package:app_store/src/modules/applications/flatpak/flatpak_controller.da
 import 'package:app_store/src/modules/applications/widgets/header_detail.dart';
 import 'package:app_store/src/modules/applications/widgets/screenshots_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 
 class ApplicationsDetailsView extends StatelessWidget {
   final ApplicationsModel applicationsModel;
@@ -13,6 +14,9 @@ class ApplicationsDetailsView extends StatelessWidget {
     final flatkpakController = FlatpakController();
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: GestureDetector(
+          onPanStart: (drag) => windowManager.startDragging(),
+        ),
         title: const Text("Voltar"),
       ),
 

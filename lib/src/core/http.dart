@@ -5,13 +5,13 @@ import 'package:http/http.dart' as http;
 
 class Http {
   static const String _flathubBase = "https://flathub.org/api/v1/apps/";
-  static const String _githubBase = "https://raw.githubusercontent.com/";
+  static const String _githubBase =
+      "https://raw.githubusercontent.com/Tiger-OperatingSystem/TigerStore-Addons/";
 
   static Future get(String route) async {
     final cache = SharedCacheRepository();
     final today = DateTime.now();
-    String base =
-        route.startsWith("Tiger-OperatingSystem/") ? _githubBase : _flathubBase;
+    String base = route.startsWith("main/") ? _githubBase : _flathubBase;
     try {
       if (await cache.read(route) == null ||
           await cache.read('expiration') == null) {

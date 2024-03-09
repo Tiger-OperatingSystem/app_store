@@ -8,19 +8,19 @@ import 'package:flutter/material.dart';
 
 class HeaderApplicationDetailWidget extends StatelessWidget {
   final ApplicationsModel applicationModel;
-  HeaderApplicationDetailWidget({
+  const HeaderApplicationDetailWidget({
     super.key,
     required this.applicationModel,
   });
 
-  final List<ApplicationsController> _controllers = [
-    FlatpakController(),
-    DebianController(),
-    WebAppController(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<ApplicationsController> applicationsController = [
+      FlatpakController(),
+      DebianController(),
+      WebAppController(),
+    ];
+
     return Container(
       padding: const EdgeInsets.all(22),
       child: Row(
@@ -53,7 +53,7 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
           SizedBox(
             child: DropdownAvailableWidget(
               applicationModel: applicationModel,
-              applicationsController: _controllers,
+              applicationsController: applicationsController,
             ),
           ),
           // Space

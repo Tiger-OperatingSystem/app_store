@@ -9,12 +9,12 @@ class MenuWidget extends StatelessWidget {
     List<Widget> menu = [
       const ItemMenuWidget(
         title: "Populares",
-        endpoint: "main/popular.json",
+        endpoint: "collection/popular",
         icon: Icons.auto_graph,
       ),
       const ItemMenuWidget(
         title: "Recem adicionados",
-        endpoint: "main/new.json",
+        endpoint: "collection/new",
         icon: Icons.celebration,
       ),
       const ItemMenuWidget(

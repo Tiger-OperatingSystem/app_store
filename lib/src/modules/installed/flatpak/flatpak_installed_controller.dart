@@ -63,11 +63,15 @@ class FlatpakInstalledController extends InstalledController {
   Future<List> dataFromXML(String tag, BuildContext context) async {
     try {
       List<String> list = [];
+
       final flatpak = await applicationsInstalled(context);
 
       for (var elements in flatpak) {
-        final file = File(
-            "$_basePath/$elements/current/active/files/share/appdata/$elements.appdata.xml");
+        final findXml = await Process.run("/bin/sh", [
+          "-c",
+          "find /var/lib/flatpak/app -name '$elements.*.xml' | head -n 1"
+        ]);
+        final file = File(findXml.outText);
         final document = XmlDocument.parse(file.readAsStringSync());
 
         final data = document

@@ -13,9 +13,9 @@ class LibreTranslate extends Translate {
     if (jsonDecode(data) is List) {
       Iterable body = jsonDecode(data);
       final map = List<Map<dynamic, dynamic>>.from(body.map((e) => e));
-
+      int count = map.length >= 45 ? 35 : map.length;
       //Set data lenght return
-      for (int i = 0; i < map.length; i++) {
+      for (int i = 0; i < count; i++) {
         final response = await http.post(
           Uri.parse(base),
           body: jsonEncode({

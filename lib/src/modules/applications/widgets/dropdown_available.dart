@@ -18,11 +18,10 @@ class DropdownAvailableWidget extends StatefulWidget {
 }
 
 List<String> _list = [""];
+late Future<List<bool>> waits;
+String dropdownValue = _list.first;
 
 class _DropdownAvailableWidgetState extends State<DropdownAvailableWidget> {
-  late String dropdownValue = _list.first;
-  late Future waits;
-
   @override
   void initState() {
     super.initState();

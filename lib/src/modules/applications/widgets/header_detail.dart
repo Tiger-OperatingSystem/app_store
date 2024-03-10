@@ -28,11 +28,17 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
         children: [
           // Space
           const Expanded(child: SizedBox.shrink()),
-          Image.network(
-            applicationModel.iconDesktopUrl!,
-            height: 64.0,
-            width: 64.0,
-          ),
+          applicationModel.iconDesktopUrl != null
+              ? Image.network(
+                  applicationModel.iconDesktopUrl!,
+                  height: 64.0,
+                  width: 64.0,
+                )
+              : Image.asset(
+                  "assets/images/logo.png",
+                  height: 94,
+                  width: 94,
+                ),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -15,13 +15,11 @@ class BuildApplicationsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List itemsWithIcon = [];
-
     return ListenableBuilder(
       listenable: currentView,
       builder: (context, child) {
         return FutureBuilder(
-          future: _getItemsWithIcon(endpoint, itemsWithIcon),
+          future: Http.get(endpoint),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -32,14 +30,14 @@ class BuildApplicationsWidget extends StatelessWidget {
             return Expanded(
               child: GridView.builder(
                 shrinkWrap: true,
-                itemCount: itemsWithIcon.length,
+                itemCount: snapshot.data.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   childAspectRatio: 2,
                 ),
                 itemBuilder: (context, index) {
                   final applicationModel =
-                      ApplicationsModel.fromJson(itemsWithIcon[index]);
+                      ApplicationsModel.fromJson(snapshot.data![index]);
                   return CardApplicationsWiget(
                       applicationModel: applicationModel);
                 },
@@ -49,23 +47,5 @@ class BuildApplicationsWidget extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-Future<List> _getItemsWithIcon(String endpoint, List list) async {
-  try {
-    final data = await Http.get(endpoint);
-
-    return await Future.delayed(Duration.zero, () {
-      for (var element in data) {
-        if (element['iconDesktopUrl'] != null) {
-          list.add(element);
-        }
-      }
-
-      return list;
-    });
-  } catch (e) {
-    rethrow;
   }
 }

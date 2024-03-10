@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app_store/src/modules/applications/libretranlate_translate.dart';
+import 'package:app_store/src/modules/applications/libretranslate_translate.dart';
 import 'package:app_store/src/modules/applications/shared_cache_repository.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,6 +29,7 @@ class Http {
         print('read cache dont expirated');
         return jsonDecode(await cache.read(route));
       }
+
       await cache.remove('expiration');
       await cache.remove(route);
       return get(route);

@@ -23,9 +23,17 @@ class CardApplicationsWiget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Image.network(applicationModel.iconDesktopUrl!,
-                        width: 50, height: 50),
-                  ),
+                      child: applicationModel.iconDesktopUrl != null
+                          ? Image.network(
+                              applicationModel.iconDesktopUrl!,
+                              width: 50,
+                              height: 50,
+                            )
+                          : Image.asset(
+                              "assets/images/logo.png",
+                              width: 50,
+                              height: 50,
+                            )),
                   Expanded(
                     flex: 2,
                     child: Column(

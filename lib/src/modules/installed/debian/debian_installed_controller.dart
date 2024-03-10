@@ -10,8 +10,6 @@ import 'package:process_run/shell.dart';
 import 'package:xml/xml.dart';
 
 class DebianInstalledController extends InstalledController {
-  final _basePath = "/usr/share/applications";
-
   @override
   Future<List<String>> applicationsInstalled(BuildContext context) async {
     try {

@@ -8,19 +8,19 @@ import 'package:flutter/material.dart';
 
 class HeaderApplicationDetailWidget extends StatelessWidget {
   final ApplicationsModel applicationModel;
-  HeaderApplicationDetailWidget({
+  const HeaderApplicationDetailWidget({
     super.key,
     required this.applicationModel,
   });
 
-  final List<ApplicationsController> _controllers = [
-    FlatpakController(),
-    DebianController(),
-    WebAppController(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<ApplicationsController> applicationsController = [
+      FlatpakController(),
+      DebianController(),
+      WebAppController(),
+    ];
+
     return Container(
       padding: const EdgeInsets.all(22),
       child: Row(
@@ -28,11 +28,17 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
         children: [
           // Space
           const Expanded(child: SizedBox.shrink()),
-          Image.network(
-            applicationModel.iconDesktopUrl!,
-            height: 64.0,
-            width: 64.0,
-          ),
+          applicationModel.iconDesktopUrl != null
+              ? Image.network(
+                  applicationModel.iconDesktopUrl!,
+                  height: 64.0,
+                  width: 64.0,
+                )
+              : Image.asset(
+                  "assets/images/logo.png",
+                  height: 94,
+                  width: 94,
+                ),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +59,7 @@ class HeaderApplicationDetailWidget extends StatelessWidget {
           SizedBox(
             child: DropdownAvailableWidget(
               applicationModel: applicationModel,
-              applicationsController: _controllers,
+              applicationsController: applicationsController,
             ),
           ),
           // Space

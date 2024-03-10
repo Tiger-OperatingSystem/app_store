@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app_store/src/modules/applications/libretranslate_translate.dart';
 import 'package:app_store/src/modules/applications/shared_cache_repository.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,6 +11,7 @@ class Http {
 
   static Future get(String route) async {
     final cache = SharedCacheRepository();
+    final libreTranslate = LibreTranslate();
     final today = DateTime.now();
     String base = route.startsWith("main/") ? _githubBase : _flathubBase;
     try {
@@ -17,7 +19,8 @@ class Http {
           await cache.read('expiration') == null) {
         print('created cache');
         final response = await http.get(Uri.parse("$base/$route"));
-        await cache.save(route, response.body);
+        final translate = await libreTranslate.fromString(response.body);
+        await cache.save(route, jsonEncode(translate));
         return get(route);
       }
 
@@ -27,6 +30,8 @@ class Http {
         return jsonDecode(await cache.read(route));
       }
 
+      await cache.remove('expiration');
+      await cache.remove(route);
       return get(route);
     } catch (e) {
       //print(e); // Debug info

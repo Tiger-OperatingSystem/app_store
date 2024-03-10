@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:app_store/src/modules/installed/installed_controller.dart';
+import 'package:app_store/src/modules/installed/flatpak/flatpak_installed_controller.dart';
 import 'package:flutter/material.dart';
 
 class InstalledView extends StatelessWidget {
@@ -7,9 +7,9 @@ class InstalledView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final installedController = InstalledController();
+    final installedController = FlatpakInstalledController();
     return FutureBuilder(
-      future: installedController.flatpakInstalled(context),
+      future: installedController.build(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -25,7 +25,7 @@ class InstalledView extends StatelessWidget {
               leading: Image.file(
                 width: 35,
                 height: 35,
-                File(applicationModel.iconDesktopUrl!),
+                File(applicationModel.iconDesktopUrl ?? ""),
               ),
               title: Text(applicationModel.name!),
               subtitle: Text(applicationModel.summary!),

@@ -1,5 +1,6 @@
 import 'package:app_store/src/modules/applications/applications_controller.dart';
 import 'package:app_store/src/modules/applications/applications_model.dart';
+import 'package:app_store/src/modules/applications/flatpak/flatpak_controller.dart';
 import 'package:app_store/src/modules/applications/widgets/button_install.dart';
 import 'package:flutter/material.dart';
 
@@ -17,45 +18,30 @@ class DropdownAvailableWidget extends StatefulWidget {
 }
 
 List<String> _list = [""];
+late Future<List<bool>> waits;
+String dropdownValue = _list.first;
 
 class _DropdownAvailableWidgetState extends State<DropdownAvailableWidget> {
-  late String dropdownValue = _list.first;
-  late Future<List> waits;
-
   @override
   void initState() {
-    waits = Future.wait(List.generate(
-        widget.applicationsController.length,
-        (index) => widget.applicationsController[index]
-            .isAvailable(widget.applicationModel, context)));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     _list = [];
+    final flatpakController = FlatpakController();
     return FutureBuilder(
-      future: waits,
+      future: flatpakController.isAvailable(widget.applicationModel, context),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        bool isAvailableFlatpak = snapshot.data![0];
-        bool isAvailableDebian = snapshot.data![1];
-        bool isAvailableWebapp = snapshot.data![2];
+        bool isAvailableFlatpak = snapshot.data!;
 
         if (isAvailableFlatpak) {
           _list.add("Flatpak");
-        }
-
-        if (isAvailableDebian) {
-          _list.add("Debian");
-        }
-
-        if (isAvailableWebapp) {
-          _list = [];
-          _list.add("WebApp");
         }
 
         return Row(

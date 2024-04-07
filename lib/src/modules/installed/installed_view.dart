@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app_store/src/modules/applications/flatpak/flatpak_controller.dart';
 import 'package:app_store/src/modules/installed/flatpak/flatpak_installed_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ class InstalledView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final installedController = FlatpakInstalledController();
+    final flatpakController = FlatpakController();
     return FutureBuilder(
       future: installedController.build(context),
       builder: (context, snapshot) {
@@ -32,7 +34,10 @@ class InstalledView extends StatelessWidget {
               trailing: SizedBox(
                 height: 40,
                 child: ElevatedButton(
-                    onPressed: () {}, child: const Text("Remover")),
+                    onPressed: () async {
+                      await flatpakController.remove(applicationModel, context);
+                    },
+                    child: const Text("Remover")),
               ),
             );
           },

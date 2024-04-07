@@ -26,6 +26,7 @@ class Http {
 
       final expiration = DateTime.parse(await cache.read('expiration'));
       if (expiration.isAfter(today) && await cache.read(route) != null) {
+        print(expiration);
         print('read cache dont expirated');
         return jsonDecode(await cache.read(route));
       }

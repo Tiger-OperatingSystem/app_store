@@ -8,7 +8,7 @@ class LibreTranslate extends Translate {
   Future fromString(String data) async {
     List translateList = [];
     Map<String, dynamic> translateMap = {};
-    const base = "http://191.252.103.249:5000/translate";
+    const base = "http://localhost:5000/translate";
 
     if (jsonDecode(data) is List) {
       Iterable body = jsonDecode(data);
